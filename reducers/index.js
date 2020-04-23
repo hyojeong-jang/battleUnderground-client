@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import test from './test';
+import location from './location';
 
 const reducer = combineReducers({
- test,
+ location,
 });
 
 export default reducer

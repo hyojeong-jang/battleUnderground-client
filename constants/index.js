@@ -1,1 +1,1 @@
-export const TEST = 'TEST';
+export const RECEIVE_LOCATION = 'RECEIVE_LOCATION';

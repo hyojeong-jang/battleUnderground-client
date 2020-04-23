@@ -1,6 +1,7 @@
 import * as types from '../constants/index'
 
-export const test = (test) => ({
-  type: types.TEST,
-  test
+export const receiveLocation = (latitude, longitude) => ({
+  type: types.RECEIVE_LOCATION,
+  latitude,
+  longitude
 });
