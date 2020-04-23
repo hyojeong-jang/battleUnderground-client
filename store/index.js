@@ -1,15 +1,15 @@
-import reducers from '../reducers';
-import { createStore, applyMiddleware } from 'redux';
+import reducer from '../reducers';
+import { createStore } from 'redux';
 
-const middleware = [];
+// const middleware = [];
 
-if (process.env.NODE_ENV !== "production") {
-  middleware.push();
-}
+// if (process.env.NODE_ENV !== "production") {
+//   middleware.push();
+// }
 
 const store = createStore(
-  reducers,
-  applyMiddleware(...middleware)
+  reducer,
+  // applyMiddleware(...middleware)
 );
 
 export default store
