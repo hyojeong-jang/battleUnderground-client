@@ -5,3 +5,8 @@ export const receiveLocation = (latitude, longitude) => ({
   latitude,
   longitude
 });
+
+export const selectedStation = (station) => ({
+  type: type.SELECTED_STATION,
+  station
+})

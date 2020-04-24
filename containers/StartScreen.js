@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, Button } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { receiveLocation } from '../actions/index';
 
@@ -39,9 +39,10 @@ export default function StartScreen ({ navigation }) {
         <TouchableOpacity
           onPress={() => navigation.navigate('SelectStation')}
         >
-          <Text style={styles.startButton}>
-            start
-          </Text>
+          <Image
+            source={require('../assets/images/startButton.png')}
+            style={styles.button}
+          />
         </TouchableOpacity>
       </View>
     );
@@ -55,18 +56,15 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: 'white'
+    alignItems: 'center',
+    backgroundColor: '#e5e5e5'
   },
   logo: {
     width: 340,
     height: 90,
-    marginLeft: '9%',
     marginBottom: '10%'
   },
-  startButton: {
-    fontFamily: 'silkscreen',
-    fontSize: 30,
-    textAlign: 'center',
-    marginTop: '15%',
+  button: {
+    marginTop: '17%'
   }
 });
