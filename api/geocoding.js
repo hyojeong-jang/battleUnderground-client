@@ -1,6 +1,7 @@
 import Geocoder from 'react-native-geocoding';
+import { GEO_API_KEY } from 'react-native-dotenv';
 
-Geocoder.init('AIzaSyDV6n8-MnfuU_hBCcUvGOZRjU1SKDDI7qk');
+Geocoder.init(GEO_API_KEY);
 
 export const getAddress = async (x, y) => {
   const response = await Geocoder.from({
