@@ -10,7 +10,7 @@ import { selectedStation } from '../actions/index';
 import { receiveNearStation } from '../api/seoulAPI';
 import { getAddress } from '../api/geocoding';
 
-export default function SelectStationScreen () {
+export default function SelectStationScreen ({ navigation }) {
   const dispatch = useDispatch();
   const longitude = useSelector(state => state.location.longitude);
   const latitude = useSelector(state => state.location.latitude);
@@ -38,7 +38,10 @@ export default function SelectStationScreen () {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Near Station</Text>
-        <Text style={styles.subTitle}>Current Location</Text>
+        <Image
+            style={styles.locationIcon}
+            source={require('../assets/images/location.png')}
+          />
         <Text style={styles.location}>{currentLocation}</Text>
         {
           stationList
@@ -84,18 +87,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'silkscreen'
   },
-  subTitle: {
-    marginTop: '7%',
-    marginBottom: 10,
-    color: 'gray',
-    fontSize: 15,
-    fontWeight: '700',
-    fontFamily: 'sans-serif',
+  locationIcon: {
+    marginTop: '5%',
+    marginBottom: 5,
+    width: 30,
+    height: 30
   },
   location: {
     marginBottom: '10%',
     fontSize: 20,
     width: '70%',
+    textAlign: 'center',
     fontFamily: 'silkscreen'
   },
   loading: {
@@ -114,7 +116,7 @@ const styles = StyleSheet.create({
     color: '#1089ff'
   },
   EnterButton: {
-    marginTop: '10%',
+    marginTop: '20%',
     color: '#23374d',
     fontSize: 20,
     fontFamily: 'silkscreen'
