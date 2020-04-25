@@ -11,6 +11,11 @@ const location = (state = initialState, action) => {
         ...state,
         station: action.station,
       };
+    case types.SELECTED_TRAIN:
+      return {
+        ...state,
+        train: action.train
+      }
     default:
       return state;
   }

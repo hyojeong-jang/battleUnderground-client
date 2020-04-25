@@ -3,28 +3,19 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 import RadioForm from 'react-native-simple-radio-button';
 
 
-export default SelectStationDetail = ({ currentLocation, stationList, setStation }) => {
-  console.log(stationList)
+export default SelectTrainDetail = ({ trainList, setTrain }) => {
+  console.log(trainList)
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Near Station</Text>
-      <Image
-          style={styles.locationIcon}
-          source={require('../assets/images/location.png')}
-        />
-      <Text style={styles.location}>{currentLocation}</Text>
+      <Text style={styles.title}>Real-Time Arrivals</Text>
       {
-        stationList
-        ? <RadioForm
-          radio_props={stationList}
+        trainList
+        && <RadioForm
+          radio_props={trainList}
           initial={0}
           buttonColor={'#1089ff'}
           labelStyle={{ fontSize: 17, fontFamily: 'silkscreen' }}
-          onPress={(value) => setStation(value)}
-        />
-        : <Image
-          style={styles.loading}
-          source={require('../assets/images/loading.gif')}
+          onPress={(value) => setTrain(value)}
         />
       }
     </View>

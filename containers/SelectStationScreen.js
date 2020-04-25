@@ -18,7 +18,7 @@ export default function SelectStationScreen ({ navigation }) {
 
   const [ currentLocation, setCurrentLocation ] = useState('');
   const [ stationList, setStationList ] = useState(null);
-  const [ userStation, setUserStation ] = useState(null);
+  const [ station, setStation ] = useState(null);
 
   useEffect(() => {
     const nearStation = async () => {
@@ -42,11 +42,11 @@ export default function SelectStationScreen ({ navigation }) {
           style={styles.mainSection}
           currentLocation={currentLocation}
           stationList={stationList}
-          setUserStation={setUserStation}
+          setStation={setStation}
         />
         <TouchableOpacity
           onPress={() => {
-            dispatch(selectedStation(userStation))
+            dispatch(selectedStation(station))
             navigation.navigate('SelectTrain')
           }}
         >
