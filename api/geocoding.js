@@ -1,5 +1,7 @@
 import Geocoder from 'react-native-geocoding';
-import { GEO_API_KEY } from 'react-native-dotenv';
+import getEnvVars from '../environment';
+
+const { GEO_API_KEY } = getEnvVars();
 
 Geocoder.init(GEO_API_KEY);
 
