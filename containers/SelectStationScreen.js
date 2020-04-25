@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { AppLoading } from 'expo';
 import { useFonts } from '@use-expo/font';
-import RadioForm from 'react-native-simple-radio-button';
 
 import { selectedStation } from '../actions/index';
 import { receiveNearStation } from '../api/seoulAPI';
 import { getAddress } from '../api/geocoding';
+
+import SelectStation from '../components/SelectStationDetail';
 
 export default function SelectStationScreen ({ navigation }) {
   const dispatch = useDispatch();
@@ -37,26 +38,12 @@ export default function SelectStationScreen ({ navigation }) {
   if (fontsLoaded) {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Near Station</Text>
-        <Image
-            style={styles.locationIcon}
-            source={require('../assets/images/location.png')}
-          />
-        <Text style={styles.location}>{currentLocation}</Text>
-        {
-          stationList
-          ? <RadioForm
-            radio_props={stationList}
-            initial={0}
-            buttonColor={'#1089ff'}
-            labelStyle={{ fontSize: 17, fontFamily: 'silkscreen' }}
-            onPress={(value) => setUserStation(value)}
-          />
-          : <Image
-            style={styles.loading}
-            source={require('../assets/images/loading.gif')}
-          />
-        }
+        <SelectStation
+          style={styles.mainSection}
+          currentLocation={currentLocation}
+          stationList={stationList}
+          setUserStation={setUserStation}
+        />
         <TouchableOpacity
           onPress={() => {
             dispatch(selectedStation(userStation))
@@ -81,42 +68,11 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     backgroundColor: 'white'
   },
-  title: {
-    fontSize: 30,
-    color: '#23374d',
-    textAlign: 'center',
-    fontFamily: 'silkscreen'
-  },
-  locationIcon: {
-    marginTop: '5%',
-    marginBottom: 5,
-    width: 30,
-    height: 30
-  },
-  location: {
-    marginBottom: '10%',
-    fontSize: 20,
-    width: '70%',
-    textAlign: 'center',
-    fontFamily: 'silkscreen'
-  },
-  loading: {
-    marginTop: '10%',
-    width: '50%',
-    height: '30%',
-  },
-  station: {
-    fontFamily: 'sans-serif',
-    marginBottom: 10
-  },
-  radioContainer: {
-    marginBottom: '5%'
-  },
-  radio: {
-    color: '#1089ff'
+  mainSection: {
+    height: '80%'
   },
   EnterButton: {
-    marginTop: '20%',
+    height: '20%',
     color: '#23374d',
     fontSize: 20,
     fontFamily: 'silkscreen'
