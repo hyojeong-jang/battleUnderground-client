@@ -19,10 +19,9 @@ export const receiveRealTimeArrivalList = async (station) => {
   const data = response.data.realtimeArrivalList.map((data) => {
     return {
       label: `${data.arvlMsg2} ${data.trainLineNm} ${arriveCode[data.arvlCd]}`,
-      value: data.btrainNo
+      value: `${data.btrainNo} ${data.trainLineNm}`
     };
   })
-  console.log(data)
   return data;
 }
 

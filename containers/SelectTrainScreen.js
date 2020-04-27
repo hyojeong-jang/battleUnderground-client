@@ -40,7 +40,7 @@ export default function SelectTrainScreen ({ navigation }) {
        <TouchableOpacity
         onPress={() => {
           dispatch(selectedTrain(train))
-          navigation.navigate('home')
+          navigation.navigate('Home')
         }}
       >
         <Text style={styles.EnterButton}>Enter Train</Text>

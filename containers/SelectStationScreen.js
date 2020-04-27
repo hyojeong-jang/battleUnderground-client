@@ -7,7 +7,7 @@ import { useFonts } from '@use-expo/font';
 
 import { selectedStation } from '../actions/index';
 import { receiveNearStation } from '../api/seoulAPI';
-import { getAddress } from '../api/geocoding';
+import { getAddress } from '../api/geocodingAPI';
 
 import SelectStation from '../components/SelectStationDetail';
 

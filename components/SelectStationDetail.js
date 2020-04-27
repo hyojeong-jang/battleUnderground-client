@@ -14,16 +14,12 @@ export default SelectStationDetail = ({ currentLocation, stationList, setStation
       <Text style={styles.location}>{currentLocation}</Text>
       {
         stationList
-        ? <RadioForm
+        && <RadioForm
           radio_props={stationList}
           initial={0}
           buttonColor={'#1089ff'}
           labelStyle={{ fontSize: 17, fontFamily: 'silkscreen' }}
           onPress={(value) => setStation(value)}
-        />
-        : <Image
-          style={styles.loading}
-          source={require('../assets/images/loading.gif')}
         />
       }
     </View>
