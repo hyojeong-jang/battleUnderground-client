@@ -2,6 +2,7 @@ import * as types from '../constants/index';
 
 const initialState = {
   station: '',
+  train: ''
 };
 
 const location = (state = initialState, action) => {
@@ -11,6 +12,11 @@ const location = (state = initialState, action) => {
         ...state,
         station: action.station,
       };
+    case types.SELECTED_TRAIN:
+      return {
+        ...state,
+        train: action.train
+      }
     default:
       return state;
   }

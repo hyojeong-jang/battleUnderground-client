@@ -3,30 +3,25 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 import RadioForm from 'react-native-simple-radio-button';
 
 
-export default SelectStationDetail = ({ currentLocation, stationList, setUserStation }) => {
+export default SelectStationDetail = ({ currentLocation, stationList, setStation }) => {
   return (
     <View style={styles.container}>
-        <Text style={styles.title}>Near Station</Text>
-        <Image
-            style={styles.locationIcon}
-            source={require('../assets/images/location.png')}
-          />
-        <Text style={styles.location}>{currentLocation}</Text>
-        {
-          stationList
-          ? <RadioForm
-            radio_props={stationList}
-            initial={0}
-            buttonColor={'#1089ff'}
-            labelStyle={{ fontSize: 17, fontFamily: 'silkscreen' }}
-            onPress={(value) => setUserStation(value)}
-          />
-          : <Image
-            style={styles.loading}
-            source={require('../assets/images/loading.gif')}
-          />
-        }
-      </View>
+      <Image
+          style={styles.locationIcon}
+          source={require('../assets/images/location.png')}
+        />
+      <Text style={styles.location}>{currentLocation}</Text>
+      {
+        stationList
+        && <RadioForm
+          radio_props={stationList}
+          initial={0}
+          buttonColor={'#1089ff'}
+          labelStyle={{ fontSize: 17, fontFamily: 'silkscreen' }}
+          onPress={(value) => setStation(value)}
+        />
+      }
+    </View>
   );
 }
 
@@ -37,12 +32,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     alignContent: 'center',
-  },
-  title: {
-    fontSize: 30,
-    color: '#23374d',
-    textAlign: 'center',
-    fontFamily: 'silkscreen'
   },
   locationIcon: {
     marginTop: '5%',

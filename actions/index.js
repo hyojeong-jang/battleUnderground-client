@@ -10,3 +10,13 @@ export const selectedStation = (station) => ({
   type: types.SELECTED_STATION,
   station
 })
+
+export const selectedTrain = (train) => ({
+  type: types.SELECTED_TRAIN,
+  train
+})
+
+export const saveUser = (nickname) => ({
+  type: types.SAVE_USER,
+  nickname
+});
