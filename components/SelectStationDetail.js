@@ -4,7 +4,6 @@ import RadioForm from 'react-native-simple-radio-button';
 
 
 export default SelectStationDetail = ({ currentLocation, stationList, setStation }) => {
-  console.log(stationList)
   return (
     <View style={styles.container}>
       <Image

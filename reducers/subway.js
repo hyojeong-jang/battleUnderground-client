@@ -2,6 +2,7 @@ import * as types from '../constants/index';
 
 const initialState = {
   station: '',
+  train: ''
 };
 
 const location = (state = initialState, action) => {

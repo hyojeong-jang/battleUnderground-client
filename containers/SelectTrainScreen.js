@@ -22,7 +22,6 @@ export default function SelectTrainScreen ({ navigation }) {
     }
     getRealTimeArrivalList();
   }, [])
-
   return (
     <View style={styles.container}>
       {

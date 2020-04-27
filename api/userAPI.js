@@ -1,16 +1,17 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: '192.168.0.48:4000',
+  baseURL: 'http://192.168.0.13:4000',
   timeout: 10000
 });
 
-export const saveUserData = (nickname, data) => {
-  console.log(nickname)
-  api.post(`/users/${nickname}`, {
-    // data: {
-    //   station: data.station,
-    //   train_id: data.train
-    // }
+export const saveUserData = async (nickname, train, station) => {
+  const response = await api.post(`/api/users/${nickname}`, {
+    data: {
+      station,
+      train
+    }
   })
+
+  return response.success
 }
