@@ -3,18 +3,19 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 import RadioForm from 'react-native-simple-radio-button';
 
 
-export default SelectTrainDetail = ({ trainList, setTrain }) => {
-  console.log(trainList)
+export default SelectTrainDetail = ({ trainList, setTrain, station }) => {
   return (
     <View style={styles.container}>
+      <Text style={styles.subTitle}>{station}</Text>
       <Text style={styles.title}>Real-Time Arrivals</Text>
       {
         trainList
         && <RadioForm
+          style={styles.radio}
           radio_props={trainList}
           initial={0}
           buttonColor={'#1089ff'}
-          labelStyle={{ fontSize: 17, fontFamily: 'silkscreen' }}
+          labelStyle={{ fontSize: 15, fontFamily: 'silkscreen' }}
           onPress={(value) => setTrain(value)}
         />
       }
@@ -34,34 +35,22 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: '#23374d',
     textAlign: 'center',
-    fontFamily: 'silkscreen'
+    fontFamily: 'silkscreen',
+    marginBottom: '10%'
   },
-  locationIcon: {
-    marginTop: '5%',
-    marginBottom: 5,
-    width: 30,
-    height: 30
-  },
-  location: {
-    marginBottom: '10%',
-    fontSize: 20,
-    width: '70%',
-    textAlign: 'center',
-    fontFamily: 'silkscreen'
+  subTitle:{
+    fontFamily: 'silkscreen',
+    marginBottom: 10
   },
   loading: {
     marginTop: '10%',
     width: '50%',
     height: '30%',
   },
-  station: {
-    fontFamily: 'sans-serif',
-    marginBottom: 10
-  },
   radioContainer: {
     marginBottom: '5%'
   },
   radio: {
-    color: '#1089ff'
+    width: '60%'
   }
 });

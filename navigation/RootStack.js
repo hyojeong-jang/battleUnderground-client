@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import StartScreen from '../containers/StartScreen';
 import SelectStationScreen from '../containers/SelectStationScreen';
 import SelectTrainScreen from '../containers/SelectTrainScreen';
+import HomeScreen from '../containers/HomeScreen';
 
 const Stack = createStackNavigator();
 
@@ -15,6 +16,7 @@ export default function RootStack() {
         <Stack.Screen name='Start' component={StartScreen} />
         <Stack.Screen name='SelectStation' component={SelectStationScreen} />
         <Stack.Screen name='SelectTrain' component={SelectTrainScreen} />
+        <Stack.Screen name='Home' component={HomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

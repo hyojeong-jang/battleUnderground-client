@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { AppLoading } from 'expo';
@@ -38,12 +38,20 @@ export default function SelectStationScreen ({ navigation }) {
   if (fontsLoaded) {
     return (
       <View style={styles.container}>
-        <SelectStation
-          style={styles.mainSection}
-          currentLocation={currentLocation}
-          stationList={stationList}
-          setStation={setStation}
-        />
+        <Text style={styles.title}>Near Station</Text>
+        {
+          stationList
+          ?  <SelectStation
+            style={styles.selectSection}
+            currentLocation={currentLocation}
+            stationList={stationList}
+            setStation={setStation}
+          />
+          : <Image
+            style={styles.loading}
+            source={require('../assets/images/loading.gif')}
+          />
+        }
         <TouchableOpacity
           onPress={() => {
             dispatch(selectedStation(station))
@@ -68,13 +76,26 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     backgroundColor: 'white'
   },
-  mainSection: {
-    height: '80%'
+  selectSection: {
+    height: '50%',
+    marginTop: '20%'
+  },
+  title: {
+    fontSize: 30,
+    color: '#23374d',
+    textAlign: 'center',
+    fontFamily: 'silkscreen',
+    marginTop: '30%'
+  },
+  loading: {
+    marginTop: '10%',
+    width: '50%',
+    height: '30%',
   },
   EnterButton: {
-    height: '20%',
     color: '#23374d',
     fontSize: 20,
-    fontFamily: 'silkscreen'
+    fontFamily: 'silkscreen',
+    marginBottom: '20%'
   }
 });

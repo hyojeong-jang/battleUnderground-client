@@ -7,7 +7,6 @@ export default SelectStationDetail = ({ currentLocation, stationList, setStation
   console.log(stationList)
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Near Station</Text>
       <Image
           style={styles.locationIcon}
           source={require('../assets/images/location.png')}
@@ -38,12 +37,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     alignContent: 'center',
-  },
-  title: {
-    fontSize: 30,
-    color: '#23374d',
-    textAlign: 'center',
-    fontFamily: 'silkscreen'
   },
   locationIcon: {
     marginTop: '5%',
