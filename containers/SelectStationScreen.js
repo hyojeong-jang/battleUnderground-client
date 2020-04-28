@@ -21,14 +21,14 @@ export default function SelectStationScreen ({ navigation }) {
   const [ station, setStation ] = useState(null);
 
   useEffect(() => {
-    const nearStation = async () => {
+    const getNearStation = async () => {
       const stations = await receiveNearStation(longitude, latitude);
       const address = await getAddress(longitude, latitude);
 
       setCurrentLocation(address);
       setStationList(stations);
     }
-    nearStation();
+    getNearStation();
   }, [])
 
   const [ fontsLoaded ] = useFonts({

@@ -5,7 +5,7 @@ const initialState = {
   train: ''
 };
 
-const location = (state = initialState, action) => {
+const subway = (state = initialState, action) => {
   switch (action.type) {
     case types.SELECTED_STATION:
       return {
@@ -22,4 +22,4 @@ const location = (state = initialState, action) => {
   }
 }
 
-export default location
+export default subway

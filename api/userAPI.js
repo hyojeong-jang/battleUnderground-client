@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://192.168.0.13:4000',
+  baseURL: 'http://192.168.0.35:4000',
   timeout: 10000
 });
 
@@ -13,5 +13,5 @@ export const saveUserData = async (nickname, train, station) => {
     }
   })
 
-  return response.success
+  return response;
 }

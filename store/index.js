@@ -1,15 +1,16 @@
 import reducer from '../reducers';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 
-// const middleware = [];
+import socketMiddleware from '../middlewares/socket';
 
+const middleware = [socketMiddleware];
 // if (process.env.NODE_ENV !== "production") {
 //   middleware.push();
 // }
 
 const store = createStore(
   reducer,
-  // applyMiddleware(...middleware)
+  applyMiddleware(...middleware)
 );
 
 export default store

@@ -16,12 +16,13 @@ export default function SelectTrainScreen ({ navigation }) {
 
   useEffect(() => {
     const getRealTimeArrivalList = async () => {
-      const station = userStation.split(' ')[0]
+      const station = userStation.split(' ')[0];
       const response = await receiveRealTimeArrivalList(station);
       setTrainList(response);
     }
     getRealTimeArrivalList();
   }, [])
+
   return (
     <View style={styles.container}>
       {
