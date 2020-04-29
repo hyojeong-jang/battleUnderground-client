@@ -29,13 +29,14 @@
     "react-native-web": "~0.11.7",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
-    "socket.io": "^2.3.0",
-    "socket.io-client": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "socket.io-client": "^2.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
     "babel-preset-expo": "~8.1.0",
-    "babel-preset-react-native": "^4.0.1"
+    "babel-preset-react-native": "^4.0.1",
+    "redux-logger": "^3.0.6"
   },
   "private": true
 }

@@ -10,7 +10,7 @@ export const receiveNearStation = async (x, y) => {
     return {label: stationInfo, value: stationInfo};
   });
   return stationList;
-  // [
+  // return [
   //   {
   //     "label": "신창 1호선",
   //     "value": "신창 1호선",
@@ -45,7 +45,7 @@ export const receiveRealTimeArrivalList = async (station) => {
     };
   })
   return data;
-  // [
+  // return [
   //   {
   //     "label": "배방 도착 천안행 - 아산방면 (막차) 도착",
   //     "value": "0722 천안행 - 아산방면 (막차)",
@@ -60,8 +60,3 @@ export const receiveRealTimeArrivalList = async (station) => {
   //   },
   // ]
 }
-
-// arrivedMessage: data.arvlMsg2,
-// status: arriveCode[data.arvlCd],
-// direction: data.trainLineNm,
-// number: data.btrainNo

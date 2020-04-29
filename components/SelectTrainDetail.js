@@ -15,7 +15,7 @@ export default SelectTrainDetail = ({ trainList, setTrain, station }) => {
           radio_props={trainList}
           initial={0}
           buttonColor={'#1089ff'}
-          labelStyle={{ fontSize: 15, fontFamily: 'silkscreen' }}
+          labelStyle={{ fontSize: 15, fontFamily: 'dunggeunmo' }}
           onPress={(value) => setTrain(value)}
         />
       }

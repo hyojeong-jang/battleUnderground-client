@@ -1,16 +1,17 @@
-import reducer from '../reducers';
-import { createStore, applyMiddleware } from 'redux';
+import reducer from '../reducers/index';
+import { createStore, applyMiddleware, compose } from 'redux';
+import reduxLogger from 'redux-logger';
+import reduxThunk from 'redux-thunk';
 
 import socketMiddleware from '../middlewares/socket';
 
-const middleware = [socketMiddleware];
-// if (process.env.NODE_ENV !== "production") {
-//   middleware.push();
-// }
+const middleware = [reduxLogger, reduxThunk, socketMiddleware];
 
 const store = createStore(
   reducer,
-  applyMiddleware(...middleware)
+  compose(
+    applyMiddleware(...middleware)
+  )
 );
 
 export default store

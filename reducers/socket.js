@@ -1,7 +1,8 @@
 import * as types from '../constants/index';
 
 const initialState = {
-  connected: false
+  connected: false,
+  room: ''
 };
 
 const socket = (state = initialState, action) => {
@@ -11,6 +12,11 @@ const socket = (state = initialState, action) => {
         ...state,
         connected: true,
       };
+    case types.SOCKET_JOIN:
+      return {
+        ...state ,
+        room: action.train
+      }
     case types.SOCKET_DISCONNECTED:
       return {
         ...state,

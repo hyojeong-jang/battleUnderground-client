@@ -7,9 +7,10 @@ const { HOST_URL } = getEnvVars();
 
 const socketMiddleware = () => {
   let socket = null;
+  console.log('in middleware');
 
   const onConnected = store => () => {
-    console.log('socket connected');
+    console.log('on connected');
     store.dispatch(socketActions.socketConnected());
   };
 
@@ -19,36 +20,39 @@ const socketMiddleware = () => {
 
   const onJoin = store => () => {
     store.dispatch(socketActions.socketJoin())
-  }
+  };
 
   return store => next => action => {
     switch (action.type) {
       case types.SOCKET_CONNECT:
+        console.log('socket connected')
         if (socket !== null) {
           socket.close();
         }
-
         socket = io(HOST_URL);
-        socket.onclose = onDisconnect(store);
-        socket.onopen = onConnected(store);
-        socket.onjoin = onJoin(store);
 
-        socket.onopen(store)
+        // socket.emit('connect');
+
+        // socket.onclose = onDisconnect(store);
+        // socket.onopen = onConnected(store);
+        // socket.onjoin = onJoin(store);
         break;
       case types.SOCKET_JOIN:
-        console.log(action, 'in socketjoibn logging action')
-        socket.onjoin(store)
-        socket.emit('joinRoom')
+        const joinInfo = {
+          train: action.train,
+          nickname: action.nickname
+        };
+
+        socket.emit('joinRoom', joinInfo);
         break;
       case types.SOCKET_DISCONNECTED:
         if (socket !== null) {
           socket.close();
         }
         socket = null;
-        console.log('websocket closed');
+        console.log('socket closed');
         break;
       default:
-        console.log('the next action:', action);
         return next(action);
     }
   };

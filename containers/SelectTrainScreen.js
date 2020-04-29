@@ -15,13 +15,12 @@ export default function SelectTrainScreen ({ navigation }) {
   const [ train, setTrain ] = useState(null);
 
   useEffect(() => {
-    const getRealTimeArrivalList = async () => {
+    return navigation.addListener('focus', async () => {
       const station = userStation.split(' ')[0];
       const response = await receiveRealTimeArrivalList(station);
       setTrainList(response);
-    }
-    getRealTimeArrivalList();
-  }, [])
+    })
+  }, [navigation])
 
   return (
     <View style={styles.container}>

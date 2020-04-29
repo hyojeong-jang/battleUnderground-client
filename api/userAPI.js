@@ -1,17 +1,19 @@
 import axios from 'axios';
+import getEnvVars from '../environment';
+
+const { HOST_URL } = getEnvVars();
 
 const api = axios.create({
-  baseURL: 'http://192.168.0.35:4000',
+  baseURL: HOST_URL,
   timeout: 10000
 });
 
 export const saveUserData = async (nickname, train, station) => {
-  const response = await api.post(`/api/users/${nickname}`, {
+  await api.post(`/api/users/${nickname}`, {
     data: {
       station,
       train
     }
   })
-
-  return response;
+  return;
 }

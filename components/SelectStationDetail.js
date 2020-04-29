@@ -17,7 +17,7 @@ export default SelectStationDetail = ({ currentLocation, stationList, setStation
           radio_props={stationList}
           initial={0}
           buttonColor={'#1089ff'}
-          labelStyle={{ fontSize: 17, fontFamily: 'silkscreen' }}
+          labelStyle={{ fontSize: 17, fontFamily: 'dunggeunmo' }}
           onPress={(value) => setStation(value)}
         />
       }
@@ -50,10 +50,6 @@ const styles = StyleSheet.create({
     marginTop: '10%',
     width: '50%',
     height: '30%',
-  },
-  station: {
-    fontFamily: 'sans-serif',
-    marginBottom: 10
   },
   radioContainer: {
     marginBottom: '5%'
