@@ -10,11 +10,14 @@ import { AppLoading } from 'expo';
 import { useFonts } from '@use-expo/font';
 
 export default function GameRoomScreen ({ navigation }) {
-  const [ errorMsg, setErrorMsg ] = useState(null);
   const dispatch = useDispatch();
+  const [ errorMsg, setErrorMsg ] = useState(null);
+  const [ allReady, setAllReady ] = useState(0);
+
 
   const train = useSelector(state => state.subway.train);
   const nickname = useSelector(state => state.user.nickname);
+  // const room = useSelector(state => state.socket.room);
 
   const [fontsLoaded] = useFonts({
     'silkscreen': require('../assets/fonts/silkscreen.ttf')
@@ -23,7 +26,7 @@ export default function GameRoomScreen ({ navigation }) {
 
   useEffect(() => {
     return navigation.addListener('focus', () => {
-      dispatch(socketActions.socketConnect());
+      dispatch(socketActions.socketConnect(train));
       dispatch(socketActions.socketJoin(train, nickname));
     });
   }, [navigation])
@@ -32,9 +35,12 @@ export default function GameRoomScreen ({ navigation }) {
     return (
       <View style={styles.container}>
         <GameRoomHeader style={styles.header} text={train} nickname={nickname} />
-        <GameRoomDetail />
-        <Text>gameroom</Text>
-
+        <Text>
+          {
+            allReady
+            && <GameRoomDetail setReady={dispatch} />
+          }
+        </Text>
       </View>
     );
   } else {

@@ -9,41 +9,57 @@ const socketMiddleware = () => {
   let socket = null;
   console.log('in middleware');
 
-  const onConnected = store => () => {
-    console.log('on connected');
-    store.dispatch(socketActions.socketConnected());
-  };
 
-  const onDisconnect = store => () => {
-    store.dispatch(socketActions.socketDisconnected());
-  };
+  // socket.on('connected', () => {
+  //   store.dispatch(socketActions.socketConnected());
+  //   console.log('on connected');
+  // });
 
-  const onJoin = store => () => {
-    store.dispatch(socketActions.socketJoin())
-  };
+  // const onConnected = store => () => {
+
+  // };
+
+  // const onDisconnect = store => () => {
+  //   store.dispatch(socketActions.socketDisconnected());
+  // };
 
   return store => next => action => {
     switch (action.type) {
       case types.SOCKET_CONNECT:
-        console.log('socket connected')
         if (socket !== null) {
           socket.close();
         }
+
         socket = io(HOST_URL);
-
-        // socket.emit('connect');
-
-        // socket.onclose = onDisconnect(store);
-        // socket.onopen = onConnected(store);
-        // socket.onjoin = onJoin(store);
+        socket.emit('connected', action.train);
+        socket.on('roomCheck', (room) => {
+          if (room) {
+            const rooms = Object.keys(room)[0];
+            socketActions.dispatchRoomId(rooms)
+          }
+        })
         break;
       case types.SOCKET_JOIN:
         const joinInfo = {
           train: action.train,
-          nickname: action.nickname
+          nickname: action.nickname,
         };
 
         socket.emit('joinRoom', joinInfo);
+        socket.on('joined', (status) => {
+          if (status === 'full') {
+            console.log('full');
+
+            // store.dispatch(
+            //   socketActions.removeRoomId(randomString.replace('full', ''))
+            // );
+          } else if (status === 'createRoom') {
+            console.log('createRoom')
+            // store.dispatch(
+            //   socketActions.dispatchRoomId(randomString)
+            // );
+          }
+        })
         break;
       case types.SOCKET_DISCONNECTED:
         if (socket !== null) {

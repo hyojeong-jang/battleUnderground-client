@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-export default GameRoomHeader = ({ text, nickname }) => {
+export default GameRoomHeader = ({ text }) => {
   const [ textBlink, setTextBlink ] = useState(true);
 
-  setInterval(() => {
-    setTextBlink(!textBlink);
-  }, 1000);
+  // setInterval(() => {
+  //   setTextBlink(!textBlink);
+  // }, 1000);
 
   return (
     <View style={styles.container}>

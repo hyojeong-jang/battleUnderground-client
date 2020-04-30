@@ -2,7 +2,7 @@ import * as types from '../constants/index';
 
 const initialState = {
   connected: false,
-  room: ''
+  room: null,
 };
 
 const socket = (state = initialState, action) => {
@@ -12,15 +12,25 @@ const socket = (state = initialState, action) => {
         ...state,
         connected: true,
       };
-    case types.SOCKET_JOIN:
-      return {
-        ...state ,
-        room: action.train
-      }
+    // case types.SOCKET_JOIN:
+    //   return {
+    //     ...state ,
+    //     trainRoom: action.train
+    //   }
     case types.SOCKET_DISCONNECTED:
       return {
         ...state,
         connected: false
+      }
+    case types.DISPATCH_ROOM_ID:
+      return {
+        ...state,
+        room: action.roomId
+      }
+    case types.REMOVE_ROOM_ID:
+      return {
+        ...state,
+        room: null
       }
     default:
       return state;
