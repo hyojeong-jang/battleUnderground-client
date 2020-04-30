@@ -1,36 +1,27 @@
 import * as types from '../constants/index';
 
 const initialState = {
-  connected: false,
   room: null,
+  participants: [],
 };
 
 const socket = (state = initialState, action) => {
   switch (action.type) {
-    case types.SOCKET_CONNECT:
+    case types.DISPATCH_PARTICIPANTS:
       return {
         ...state,
-        connected: true,
-      };
-    // case types.SOCKET_JOIN:
-    //   return {
-    //     ...state ,
-    //     trainRoom: action.train
-    //   }
-    case types.SOCKET_DISCONNECTED:
-      return {
-        ...state,
-        connected: false
+        participants: action.participants
       }
-    case types.DISPATCH_ROOM_ID:
+    case types.DISPATCH_ROOM:
       return {
         ...state,
-        room: action.roomId
+        room: action.room
       }
-    case types.REMOVE_ROOM_ID:
-      return {
+    case types.DISPATCH_USER_STATUS:
+      console.log('in reducer')
+      return{
         ...state,
-        room: null
+        participants: action.participants
       }
     default:
       return state;

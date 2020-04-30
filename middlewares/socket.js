@@ -7,21 +7,6 @@ const { HOST_URL } = getEnvVars();
 
 const socketMiddleware = () => {
   let socket = null;
-  console.log('in middleware');
-
-
-  // socket.on('connected', () => {
-  //   store.dispatch(socketActions.socketConnected());
-  //   console.log('on connected');
-  // });
-
-  // const onConnected = store => () => {
-
-  // };
-
-  // const onDisconnect = store => () => {
-  //   store.dispatch(socketActions.socketDisconnected());
-  // };
 
   return store => next => action => {
     switch (action.type) {
@@ -31,34 +16,31 @@ const socketMiddleware = () => {
         }
 
         socket = io(HOST_URL);
+
         socket.emit('connected', action.train);
-        socket.on('roomCheck', (room) => {
-          if (room) {
-            const rooms = Object.keys(room)[0];
-            socketActions.dispatchRoomId(rooms)
-          }
-        })
         break;
       case types.SOCKET_JOIN:
         const joinInfo = {
           train: action.train,
           nickname: action.nickname,
         };
-
         socket.emit('joinRoom', joinInfo);
-        socket.on('joined', (status) => {
-          if (status === 'full') {
-            console.log('full');
 
-            // store.dispatch(
-            //   socketActions.removeRoomId(randomString.replace('full', ''))
-            // );
-          } else if (status === 'createRoom') {
-            console.log('createRoom')
-            // store.dispatch(
-            //   socketActions.dispatchRoomId(randomString)
-            // );
-          }
+        socket.on('joined', (participants, room) => {
+          store.dispatch(socketActions.dispatchParticipants(participants));
+          store.dispatch(socketActions.dispatchRoom(room));
+        })
+        break;
+      case types.DISPATCH_READY_USERS:
+        console.log('in middleware ready user')
+        const userInfo = {
+          train: action.train,
+          nickname: action.nickname
+        };
+        socket.emit('onReady', userInfo, action.room);
+
+        socket.on('readyStatus', (userStatus) => {
+          store.dispatch(socketActions.dispatchUserStatus(userStatus));
         })
         break;
       case types.SOCKET_DISCONNECTED:

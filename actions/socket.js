@@ -5,27 +5,35 @@ export const socketConnect = (train) => ({
   train
 });
 
-export const socketConnected = () => ({
-  type: types.SOCKET_CONNECTED
-});
-
 export const socketDisconnected = () => ({
   type: types.SOCKET_DISCONNECTED
 });
 
-export const socketJoin = (train, nickname, room) => ({
+export const socketJoin = (train, nickname) => ({
   type: types.SOCKET_JOIN,
   train,
+  nickname
+});
+
+export const dispatchParticipants = (participants) => ({
+  type: types.DISPATCH_PARTICIPANTS,
+  participants
+});
+
+export const dispatchReadyUsers = (room, nickname, train) => ({
+  type: types.DISPATCH_READY_USERS,
+  room,
   nickname,
+  train
+});
+
+export const dispatchUserStatus = (participants) => ({
+  type: types.DISPATCH_USER_STATUS,
+  participants
+});
+
+export const dispatchRoom = (room) => ({
+  type: types.DISPATCH_ROOM,
   room
 });
 
-export const dispatchRoomId = (roomId) => ({
-  type: types.DISPATCH_ROOM_ID,
-  roomId
-})
-
-export const removeRoomId = (roomId) => ({
-  type: types.REMOVE_ROOM_ID,
-  roomId
-})
