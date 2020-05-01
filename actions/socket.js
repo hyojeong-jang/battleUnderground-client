@@ -37,3 +37,12 @@ export const dispatchRoom = (room) => ({
   room
 });
 
+export const dispatchUserInitialInfo = (initialInfo) => ({
+  type: types.DISPATCH_USER_INITIAL_INFO,
+  initialInfo
+});
+
+export const dispatchUserInfoOnGame = (userInfo) => ({
+  type: types.DISPATCH_USER_INFO_ON_GAME,
+  userInfo
+});

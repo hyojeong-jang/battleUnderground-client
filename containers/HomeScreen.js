@@ -5,7 +5,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 import { AppLoading } from 'expo';
 import { useFonts } from '@use-expo/font';
 
-import Header from '../components/Header';
+import HomeHeader from '../components/HomeHeader';
 
 import { saveUser } from '../actions/index';
 import { saveUserData } from '../api/userAPI';
@@ -24,7 +24,7 @@ export default HomeScreen = ({ navigation }) => {
   if (fontsLoaded) {
     return (
       <View style={styles.container}>
-        <Header
+        <HomeHeader
           style={styles.header}
           trainInfo={train}
         />

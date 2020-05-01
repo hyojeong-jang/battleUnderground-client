@@ -16,32 +16,37 @@ const socketMiddleware = () => {
         }
 
         socket = io(HOST_URL);
-
         socket.emit('connected', action.train);
+
         break;
       case types.SOCKET_JOIN:
         const joinInfo = {
           train: action.train,
           nickname: action.nickname,
         };
-        socket.emit('joinRoom', joinInfo);
 
+        socket.emit('joinRoom', joinInfo);
         socket.on('joined', (participants, room) => {
           store.dispatch(socketActions.dispatchParticipants(participants));
           store.dispatch(socketActions.dispatchRoom(room));
         })
+
         break;
       case types.DISPATCH_READY_USERS:
-        console.log('in middleware ready user')
         const userInfo = {
           train: action.train,
           nickname: action.nickname
         };
-        socket.emit('onReady', userInfo, action.room);
 
+        socket.emit('onReady', userInfo, action.room);
         socket.on('readyStatus', (userStatus) => {
           store.dispatch(socketActions.dispatchUserStatus(userStatus));
         })
+
+        break;
+      case types.DISPATCH_USER_INITIAL_INFO:
+        socket.emit('initialInfo', action.initialInfo)
+
         break;
       case types.SOCKET_DISCONNECTED:
         if (socket !== null) {
