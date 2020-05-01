@@ -48,6 +48,13 @@ const socketMiddleware = () => {
         socket.emit('initialInfo', action.initialInfo)
 
         break;
+      case types.DISPATCH_MESSAGE:
+        console.log(action.messageInfo)
+        socket.emit('message', action.room, action.messageInfo);
+        socket.on('messageList', (chat) => {
+          store.dispatch(socketActions.dispatchChatList(chat));
+        })
+        break;
       case types.SOCKET_DISCONNECTED:
         if (socket !== null) {
           socket.close();

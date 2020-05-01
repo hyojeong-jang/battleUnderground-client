@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
 
 export default TicTacToe = () => {
   const onBoxPress = useCallback((e) => {
@@ -14,14 +14,15 @@ export default TicTacToe = () => {
             style={styles.boxContainer}
             onPress={onBoxPress}
           >
-            <Image
+            <View style={styles.box}></View>
+            {/* <Image
               style={styles.box}
-              accessibilityValue={el}
               source={require('../assets/images/background.png')}
-            />
+            /> */}
           </TouchableOpacity>
         })
       }
+      <Text style={styles.turn}>user1's turn</Text>
     </View>
   )
 }
@@ -30,17 +31,27 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginTop: '5%',
-    width: '100%',
+    marginTop: '2%',
+    marginBottom: '2%',
+    width: '95%',
     height: '50%',
   },
   box: {
     width: '100%',
     height: '100%',
+    backgroundColor: '#ff9900',
+    borderColor: 'black',
+    borderWidth: 3,
+    borderStyle: 'solid'
   },
   boxContainer: {
-    backgroundColor: '#1e4729',
-    width: '32%',
-    height: '32%'
+    width: '33%',
+    height: '33%',
+    padding: 2
+  },
+  turn: {
+    fontFamily: 'dunggeunmo',
+    fontSize: 15,
+    textAlign: 'center'
   }
 });

@@ -7,8 +7,9 @@ import { useFonts } from '@use-expo/font';
 
 import * as socketActions from '../actions/socket';
 import TicTacToe from '../games/Tic-Tac-Toe';
+import Chat from '../containers/Chat';
 
-export default GameContainer = ({ user, participants }) => {
+export default GameContainer = ({ user, socketRoom, participants }) => {
   const dispatch = useDispatch();
   const station = useSelector(state => state.subway.train);
 
@@ -46,7 +47,7 @@ export default GameContainer = ({ user, participants }) => {
   }, [])
 
   const [fontsLoaded] = useFonts({
-    'silkscreen': require('../assets/fonts/silkscreen.ttf')
+    'dunggeunmo': require('../assets/fonts/DungGeunMo.ttf')
   });
 
   if (fontsLoaded) {
@@ -61,8 +62,15 @@ export default GameContainer = ({ user, participants }) => {
             <Text style={styles.secondTurn}>
               {`next is ${turn ? opponent : user}`}
             </Text>
-            </View>
-          : <TicTacToe style={styles.game} />
+          </View>
+          : <View style={styles.mainSection}>
+            <TicTacToe style={styles.game} />
+            <Chat
+              style={styles.chat}
+              nickname={user}
+              room={socketRoom}
+            />
+          </View>
         }
       </View>
     )
@@ -78,16 +86,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column'
   },
+  mainSection: {
+    flex: 1,
+    flexDirection: 'column'
+  },
   firstTurn : {
     fontSize: 20,
     textAlign: 'center',
-    fontFamily: 'silkscreen',
+    fontFamily: 'dunggeunmo',
     color: 'red'
   },
   secondTurn: {
     fontSize: 15,
-    marginTop: '5%',
+    marginTop: 5,
     textAlign: 'center',
-    fontFamily: 'silkscreen',
+    fontFamily: 'dunggeunmo',
   }
 });

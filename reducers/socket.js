@@ -3,6 +3,7 @@ import * as types from '../constants/index';
 const initialState = {
   room: null,
   participants: [],
+  chatList: []
 };
 
 const socket = (state = initialState, action) => {
@@ -18,10 +19,14 @@ const socket = (state = initialState, action) => {
         room: action.room
       }
     case types.DISPATCH_USER_STATUS:
-      console.log('in reducer')
-      return{
+      return {
         ...state,
         participants: action.participants
+      }
+    case types.DISPATCH_CHAT_LIST:
+      return {
+        ...state,
+        chatList: action.chatList
       }
     default:
       return state;

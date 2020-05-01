@@ -42,7 +42,9 @@ export default function GameRoomScreen ({ navigation }) {
         {
           allReady
           ? <GameContainer
+            style={styles.game}
             user={nickname}
+            socketRoom={room}
             participants={participants}
           />
           : <GameReady
@@ -66,8 +68,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
+    paddingTop: 25,
   },
   header: {
-    marginTop: '5%'
+    flex: 1
+  },
+  game: {
+    flex: 9
   }
 });

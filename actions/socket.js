@@ -46,3 +46,14 @@ export const dispatchUserInfoOnGame = (userInfo) => ({
   type: types.DISPATCH_USER_INFO_ON_GAME,
   userInfo
 });
+
+export const dispatchMessage = (room, messageInfo) => ({
+  type: types.DISPATCH_MESSAGE,
+  room,
+  messageInfo
+})
+
+export const dispatchChatList = (chatList) => ({
+  type: types.DISPATCH_CHAT_LIST,
+  chatList
+})
