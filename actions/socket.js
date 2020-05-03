@@ -51,9 +51,19 @@ export const dispatchMessage = (room, messageInfo) => ({
   type: types.DISPATCH_MESSAGE,
   room,
   messageInfo
-})
+});
 
 export const dispatchChatList = (chatList) => ({
   type: types.DISPATCH_CHAT_LIST,
   chatList
-})
+});
+
+export const updateGameInfo = (gameInfo) => ({
+  type: types.UPDATE_GAME_INFO,
+  gameInfo
+});
+
+export const updateGameStatus = (gameStatus) => ({
+  type: types.UPDATE_GAME_STATUS,
+  gameStatus
+});

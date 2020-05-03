@@ -49,11 +49,18 @@ const socketMiddleware = () => {
 
         break;
       case types.DISPATCH_MESSAGE:
-        console.log(action.messageInfo)
         socket.emit('message', action.room, action.messageInfo);
         socket.on('messageList', (chat) => {
           store.dispatch(socketActions.dispatchChatList(chat));
         })
+
+        break;
+      case types.UPDATE_GAME_INFO:
+        socket.emit('updateGameInfo', action.gameInfo);
+        socket.on('gameStatus', (gameStatus) => {
+          store.dispatch(socketActions.updateGameStatus(gameStatus));
+        })
+
         break;
       case types.SOCKET_DISCONNECTED:
         if (socket !== null) {

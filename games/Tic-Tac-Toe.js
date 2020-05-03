@@ -1,28 +1,72 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { View, TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
 
-export default TicTacToe = () => {
-  const onBoxPress = useCallback((e) => {
-    console.log(e.target.value)
-  })
+export default TicTacToe = ({
+  user,
+  room,
+  initialTurn,
+  opponent,
+  gameStatus,
+  updateGameInfo
+}) => {
+  const [ turn, setTurn ] = useState(initialTurn);
+  const [ userSelected, setUserSelected ] = useState([]);
+  const [ opponentSelected, setOpponentSelected ] =  useState([]);
+
+  const onBoxPress = useCallback((box) => {
+    setTurn(!turn)
+    if (turn) {
+      const gameInfo = {
+        room,
+        name: user,
+        turn,
+        // turn: !initialTurn,
+        selectBox: box
+      };
+      updateGameInfo(gameInfo);
+    } else {
+      console.log('----------------not my turn--------------------')
+    }
+  }, [turn]);
+
+  useEffect(() => {
+    gameStatus.forEach((el) => {
+      if (el.name === user) {
+        setTurn(el.turn);
+        setUserSelected(el.selectedBoxes);
+      } else {
+        setOpponentSelected(el.selectedBoxes);
+      }
+    })
+  }, [gameStatus]);
+
   return (
     <View style={styles.container}>
-      {
-        [1, 2, 3, 4, 5, 6, 7, 8, 9].map((el) => {
-          return <TouchableOpacity
-            key={el}
-            style={styles.boxContainer}
-            onPress={onBoxPress}
-          >
-            <View style={styles.box}></View>
-            {/* <Image
-              style={styles.box}
-              source={require('../assets/images/background.png')}
-            /> */}
-          </TouchableOpacity>
-        })
-      }
-      <Text style={styles.turn}>user1's turn</Text>
+      { [1, 2, 3, 4, 5, 6, 7, 8, 9].map((el,idx) => {
+        return <TouchableOpacity
+          key={idx}
+          style={styles.boxContainer}
+          onPress={() => onBoxPress(el)}
+        >
+          <View style={styles.box}>
+            {
+              userSelected.includes(el)
+              ? initialTurn
+                ? <Image style={styles.mark} source={require('../assets/images/first.png')} />
+                : <Image style={styles.mark} source={require('../assets/images/second.png')} />
+              : []
+            }
+            {
+              opponentSelected.includes(el)
+              ? !initialTurn
+                ? <Image style={styles.mark} source={require('../assets/images/first.png')} />
+                : <Image style={styles.mark} source={require('../assets/images/second.png')} />
+              : []
+            }
+          </View>
+        </TouchableOpacity>
+      })}
+      <Text style={styles.turn}>{`${turn ? user : opponent}'s turn`}</Text>
     </View>
   )
 }
@@ -39,7 +83,8 @@ const styles = StyleSheet.create({
   box: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#ff9900',
+    alignItems: 'center',
+    backgroundColor: '#333300',
     borderColor: 'black',
     borderWidth: 3,
     borderStyle: 'solid'
@@ -53,5 +98,9 @@ const styles = StyleSheet.create({
     fontFamily: 'dunggeunmo',
     fontSize: 15,
     textAlign: 'center'
+  },
+  mark: {
+    width: '80%',
+    height: '100%'
   }
 });

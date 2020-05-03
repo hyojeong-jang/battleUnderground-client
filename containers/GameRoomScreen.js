@@ -21,7 +21,8 @@ export default function GameRoomScreen ({ navigation }) {
 
   const [ allReady, setAllReady ] = useState(false);
   const [fontsLoaded] = useFonts({
-    'silkscreen': require('../assets/fonts/silkscreen.ttf')
+    'silkscreen': require('../assets/fonts/silkscreen.ttf'),
+    'dunggeunmo': require('../assets/fonts/DungGeunMo.ttf')
   });
 
   useEffect(() => {
@@ -44,7 +45,7 @@ export default function GameRoomScreen ({ navigation }) {
           ? <GameContainer
             style={styles.game}
             user={nickname}
-            socketRoom={room}
+            room={room}
             participants={participants}
           />
           : <GameReady

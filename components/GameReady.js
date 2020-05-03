@@ -15,7 +15,6 @@ export default GameReady = ({
       if (readyCount === 2) setAllReady(true);
     });
   }, [participants])
-
   return (
     <View style={styles.container}>
       <View style={styles.gameSection}>
@@ -24,7 +23,7 @@ export default GameReady = ({
           && <TouchableOpacity
             onPress={() => {
               participants[0].name === user
-              && dispatchReadyUsers();
+              && dispatchReadyUsers()
             }}
           >
             <Text style={styles.user}>{participants[0].name}</Text>

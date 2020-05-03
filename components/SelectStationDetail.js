@@ -1,19 +1,28 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import RadioForm from 'react-native-simple-radio-button';
 
 
-export default SelectStationDetail = ({ currentLocation, stationList, setStation }) => {
+export default SelectStationDetail = ({
+  currentLocation,
+  stationList,
+  setStation,
+  onbuttonPress
+}) => {
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Near Station</Text>
       <Image
           style={styles.locationIcon}
           source={require('../assets/images/location.png')}
         />
-      <Text style={styles.location}>{currentLocation}</Text>
+        <View style={styles.locationContainer}>
+          <Text style={styles.location}>{currentLocation}</Text>
+        </View>
       {
         stationList
         && <RadioForm
+          style={styles.radio}
           radio_props={stationList}
           initial={0}
           buttonColor={'#1089ff'}
@@ -21,17 +30,28 @@ export default SelectStationDetail = ({ currentLocation, stationList, setStation
           onPress={(value) => setStation(value)}
         />
       }
+        <TouchableOpacity onPress={onbuttonPress}>
+          <Text style={styles.EnterButton}>Enter Station</Text>
+        </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
+    height: '50%',
     alignItems: 'center',
     alignContent: 'center',
+  },
+  title: {
+    fontSize: 30,
+    color: '#23374d',
+    textAlign: 'center',
+    fontFamily: 'silkscreen',
+    marginTop: '10%',
+    marginBottom: '5%'
   },
   locationIcon: {
     marginTop: '5%',
@@ -39,22 +59,26 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30
   },
+  locationContainer: {
+    width: '70%'
+  },
   location: {
-    marginBottom: '10%',
+    marginBottom: '20%',
     fontSize: 20,
-    width: '70%',
     textAlign: 'center',
-    fontFamily: 'silkscreen'
+    fontFamily: 'dunggeunmo'
   },
   loading: {
     marginTop: '10%',
     width: '50%',
-    height: '30%',
-  },
-  radioContainer: {
-    marginBottom: '5%'
+    height: '30%'
   },
   radio: {
-    color: '#1089ff'
+    marginBottom: '10%'
+  },
+  EnterButton: {
+    color: '#23374d',
+    fontSize: 20,
+    fontFamily: 'silkscreen'
   }
 });

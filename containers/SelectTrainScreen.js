@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 
 import { selectedTrain } from '../actions/index';
 
@@ -22,6 +22,11 @@ export default function SelectTrainScreen ({ navigation }) {
     })
   }, [navigation])
 
+  const onPressButton = useCallback(() => {
+    dispatch(selectedTrain(train));
+    navigation.navigate('Home');
+  }, [train]);
+
   return (
     <View style={styles.container}>
       {
@@ -30,20 +35,13 @@ export default function SelectTrainScreen ({ navigation }) {
           station={userStation}
           trainList={trainList}
           setTrain={setTrain}
+          onPressButton={onPressButton}
         />
         : <Image
           style={styles.loading}
           source={require('../assets/images/loading.gif')}
         />
       }
-       <TouchableOpacity
-        onPress={() => {
-          dispatch(selectedTrain(train))
-          navigation.navigate('Home')
-        }}
-      >
-        <Text style={styles.EnterButton}>Enter Train</Text>
-      </TouchableOpacity>
     </View>
   );
 }
@@ -60,11 +58,6 @@ const styles = StyleSheet.create({
   loading: {
     marginTop: '10%',
     width: '50%',
-    height: '30%',
-  },
-  EnterButton: {
-    color: '#23374d',
-    fontSize: 20,
-    fontFamily: 'silkscreen',
+    height: '30%'
   }
 });

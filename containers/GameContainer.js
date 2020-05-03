@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, Text, StyleSheet } from 'react-native';
-
-import { AppLoading } from 'expo';
-import { useFonts } from '@use-expo/font';
 
 import * as socketActions from '../actions/socket';
 import TicTacToe from '../games/Tic-Tac-Toe';
 import Chat from '../containers/Chat';
 
-export default GameContainer = ({ user, socketRoom, participants }) => {
+export default GameContainer = ({ user, room, participants }) => {
   const dispatch = useDispatch();
   const station = useSelector(state => state.subway.train);
+  const gameStatus = useSelector(state => state.socket.gameStatus);
 
   const [ turn, setTurn ] = useState(null);
   const [ opponent, setOpponent ] = useState(null);
@@ -34,11 +32,12 @@ export default GameContainer = ({ user, socketRoom, participants }) => {
     const InitialInfo = {
       name: user,
       turn: isUserTurn(participants, user),
-      selectedBox: [],
-      userSelected: [],
+      selectedBoxes: [],
+      selectBox: null,
       winner: null,
       score: null,
-      station
+      station,
+      room
     };
     dispatch(socketActions.dispatchUserInitialInfo(InitialInfo));
     setTimeout(() => {
@@ -46,37 +45,41 @@ export default GameContainer = ({ user, socketRoom, participants }) => {
     }, 3000);
   }, [])
 
-  const [fontsLoaded] = useFonts({
-    'dunggeunmo': require('../assets/fonts/DungGeunMo.ttf')
-  });
+  const updateGameInfo = useCallback((info) => {
+    dispatch(socketActions.updateGameInfo(info));
+  })
 
-  if (fontsLoaded) {
-    return (
-      <View style={styles.container}>
-        {
-          startSign
-          ? <View>
-            <Text style={styles.firstTurn}>
-              {`${turn ? user : opponent }'s turn`}
-            </Text>
-            <Text style={styles.secondTurn}>
-              {`next is ${turn ? opponent : user}`}
-            </Text>
-          </View>
-          : <View style={styles.mainSection}>
-            <TicTacToe style={styles.game} />
-            <Chat
-              style={styles.chat}
-              nickname={user}
-              room={socketRoom}
-            />
-          </View>
-        }
-      </View>
-    )
-  } else {
-    return <AppLoading />
-  }
+  return (
+    <View style={styles.container}>
+      {
+        startSign
+        ? <View>
+          <Text style={styles.firstTurn}>
+            {`${turn ? user : opponent }'s turn`}
+          </Text>
+          <Text style={styles.secondTurn}>
+            {`next is ${turn ? opponent : user}`}
+          </Text>
+        </View>
+        : <View style={styles.mainSection}>
+          <TicTacToe
+            style={styles.game}
+            user={user}
+            room={room}
+            initialTurn={turn}
+            opponent={opponent}
+            gameStatus={gameStatus}
+            updateGameInfo={updateGameInfo}
+          />
+          <Chat
+            style={styles.chat}
+            nickname={user}
+            room={room}
+          />
+        </View>
+      }
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({

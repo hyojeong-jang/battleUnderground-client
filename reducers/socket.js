@@ -3,7 +3,11 @@ import * as types from '../constants/index';
 const initialState = {
   room: null,
   participants: [],
-  chatList: []
+  chatList: [],
+  gameStatus: [],
+  winner: null,
+  score: null,
+  station: null
 };
 
 const socket = (state = initialState, action) => {
@@ -27,6 +31,11 @@ const socket = (state = initialState, action) => {
       return {
         ...state,
         chatList: action.chatList
+      }
+    case types.UPDATE_GAME_STATUS:
+      return {
+        ...state,
+        gameStatus: action.gameStatus
       }
     default:
       return state;

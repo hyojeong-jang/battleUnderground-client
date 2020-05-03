@@ -17,8 +17,7 @@ export default ChatDetail = ({ dispatchMessage, nickname, room, chatList }) => {
           {
             chatList.map((chat, idx) => {
               return <View key={idx}>
-                <Text>{chat.content}</Text>
-                <Text>{chat.nickname}</Text>
+                <Text style={styles.message}>{`${chat.nickname}: ${chat.content}`}</Text>
               </View>
             })
           }
@@ -68,5 +67,8 @@ const styles = StyleSheet.create({
     borderBottomColor: 'black',
     borderStyle: 'solid',
     borderBottomWidth: 3
+  },
+  message: {
+    fontFamily: 'dunggeunmo'
   }
 });
