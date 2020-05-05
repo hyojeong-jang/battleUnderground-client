@@ -1,7 +1,10 @@
 import axios from 'axios';
+import getEnvVars from '../environment';
+
+const { HOST_URL } = getEnvVars();
 
 const api = axios.create({
-  baseURL: 'http://192.168.0.13:4000',
+  baseURL: HOST_URL,
   timeout: 10000
 });
 
@@ -12,6 +15,5 @@ export const saveUserData = async (nickname, train, station) => {
       train
     }
   })
-
-  return response.success
+  return response.data.user;
 }

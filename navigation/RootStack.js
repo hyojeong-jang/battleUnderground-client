@@ -7,6 +7,7 @@ import SelectStationScreen from '../containers/SelectStationScreen';
 import SelectTrainScreen from '../containers/SelectTrainScreen';
 import HomeScreen from '../containers/HomeScreen';
 import GameRoomScreen from '../containers/GameRoomScreen';
+import GameResultScreen from '../containers/GameResultScreen';
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,7 @@ export default function RootStack() {
         <Stack.Screen name='SelectTrain' component={SelectTrainScreen} />
         <Stack.Screen name='Home' component={HomeScreen} />
         <Stack.Screen name='GameRoom' component={GameRoomScreen} />
+        <Stack.Screen name='GameResult' component={GameResultScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

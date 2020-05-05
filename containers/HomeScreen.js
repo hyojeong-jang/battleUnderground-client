@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 
 import { AppLoading } from 'expo';
 import { useFonts } from '@use-expo/font';
 
-import Header from '../components/Header';
+import HomeHeader from '../components/HomeHeader';
 
-import { saveUser } from '../actions/index';
+import * as actions from '../actions/index';
 import { saveUserData } from '../api/userAPI';
 
 export default HomeScreen = ({ navigation }) => {
@@ -16,15 +16,23 @@ export default HomeScreen = ({ navigation }) => {
   const train = useSelector(state => state.subway.train);
   const station = useSelector(state => state.subway.station);
   const userNickname = useSelector(state => state.user.nickname);
-  const [ nickname, onChangeText ] = useState('enter your nickname');
+  const [ nickname, onChangeText ] = useState('');
 
   const [ fontsLoaded ] = useFonts({
     'silkscreen': require('../assets/fonts/silkscreen.ttf')
   });
+
+  const onButtonPress = useCallback(async () => {
+    dispatch(actions.saveUser(nickname))
+    const document = await saveUserData(nickname, train, station);
+    dispatch(actions.dispatchUserDocument(document));
+    navigation.navigate('GameRoom');
+  });
+
   if (fontsLoaded) {
     return (
       <View style={styles.container}>
-        <Header
+        <HomeHeader
           style={styles.header}
           trainInfo={train}
         />
@@ -32,17 +40,14 @@ export default HomeScreen = ({ navigation }) => {
           <TextInput
             style={styles.textInput}
             onChangeText={text => onChangeText(text)}
+            placeholder='enter your nickname'
             defaultValue={userNickname}
             value={nickname}
           />
         </View>
         <TouchableOpacity
           style={styles.buttonContainer}
-          onPress={() => {
-            dispatch(saveUser(nickname))
-            saveUserData(nickname, train, station)
-            navigation.navigate('GameRoom')
-          }}
+          onPress={onButtonPress}
         >
           <Text style={styles.enterButton}>
             Start a game

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, Image, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { AppLoading } from 'expo';
@@ -21,45 +21,41 @@ export default function SelectStationScreen ({ navigation }) {
   const [ station, setStation ] = useState(null);
 
   useEffect(() => {
-    const nearStation = async () => {
+    return navigation.addListener('focus', async () => {
       const stations = await receiveNearStation(longitude, latitude);
       const address = await getAddress(longitude, latitude);
 
       setCurrentLocation(address);
       setStationList(stations);
-    }
-    nearStation();
-  }, [])
+    })
+  }, [navigation])
+
+  const onbuttonPress = useCallback(() => {
+    dispatch(selectedStation(station));
+    navigation.navigate('SelectTrain');
+  }, [station])
 
   const [ fontsLoaded ] = useFonts({
-    'silkscreen': require('../assets/fonts/silkscreen.ttf')
+    'silkscreen': require('../assets/fonts/silkscreen.ttf'),
+    'dunggeunmo': require('../assets/fonts/DungGeunMo.ttf')
   });
 
   if (fontsLoaded) {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Near Station</Text>
         {
           stationList
           ?  <SelectStation
-            style={styles.selectSection}
             currentLocation={currentLocation}
             stationList={stationList}
             setStation={setStation}
+            onbuttonPress={onbuttonPress}
           />
           : <Image
             style={styles.loading}
             source={require('../assets/images/loading.gif')}
           />
         }
-        <TouchableOpacity
-          onPress={() => {
-            dispatch(selectedStation(station))
-            navigation.navigate('SelectTrain')
-          }}
-        >
-          <Text style={styles.EnterButton}>Enter Station</Text>
-        </TouchableOpacity>
       </View>
     );
   } else {
@@ -76,26 +72,9 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     backgroundColor: 'white'
   },
-  selectSection: {
-    height: '50%',
-    marginTop: '20%'
-  },
-  title: {
-    fontSize: 30,
-    color: '#23374d',
-    textAlign: 'center',
-    fontFamily: 'silkscreen',
-    marginTop: '30%'
-  },
   loading: {
     marginTop: '10%',
     width: '50%',
     height: '30%',
-  },
-  EnterButton: {
-    color: '#23374d',
-    fontSize: 20,
-    fontFamily: 'silkscreen',
-    marginBottom: '20%'
   }
 });

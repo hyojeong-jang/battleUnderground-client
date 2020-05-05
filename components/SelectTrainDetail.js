@@ -1,9 +1,14 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import RadioForm from 'react-native-simple-radio-button';
 
 
-export default SelectTrainDetail = ({ trainList, setTrain, station }) => {
+export default SelectTrainDetail = ({
+  trainList,
+  setTrain,
+  station,
+  onPressButton
+}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.subTitle}>{station}</Text>
@@ -15,10 +20,13 @@ export default SelectTrainDetail = ({ trainList, setTrain, station }) => {
           radio_props={trainList}
           initial={0}
           buttonColor={'#1089ff'}
-          labelStyle={{ fontSize: 15, fontFamily: 'silkscreen' }}
+          labelStyle={{ fontSize: 15, fontFamily: 'dunggeunmo' }}
           onPress={(value) => setTrain(value)}
         />
       }
+      <TouchableOpacity onPress={onPressButton}>
+        <Text style={styles.EnterButton}>Enter Train</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -39,8 +47,9 @@ const styles = StyleSheet.create({
     marginBottom: '10%'
   },
   subTitle:{
-    fontFamily: 'silkscreen',
-    marginBottom: 10
+    fontFamily: 'dunggeunmo',
+    marginBottom: 15,
+    fontSize: 15
   },
   loading: {
     marginTop: '10%',
@@ -51,6 +60,14 @@ const styles = StyleSheet.create({
     marginBottom: '5%'
   },
   radio: {
-    width: '60%'
+    width: '60%',
+    marginBottom: '5%',
+    marginTop: '5%'
+  },
+  EnterButton: {
+    color: '#23374d',
+    fontSize: 20,
+    fontFamily: 'silkscreen',
+    marginTop: '10%'
   }
 });

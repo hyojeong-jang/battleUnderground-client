@@ -8,8 +8,6 @@ import * as Location from 'expo-location';
 import { useFonts } from '@use-expo/font';
 
 export default function StartScreen ({ navigation }) {
-  const [ errorMsg, setErrorMsg ] = useState(null);
-
   const dispatch = useDispatch();
 
   useEffect(() => {

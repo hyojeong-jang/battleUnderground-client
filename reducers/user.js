@@ -1,7 +1,8 @@
 import * as types from '../constants/index';
 
 const initialState = {
-  nickname: ''
+  nickname: '',
+  id: ''
 };
 
 const user = (state = initialState, action) => {
@@ -11,6 +12,11 @@ const user = (state = initialState, action) => {
         ...state,
         nickname: action.nickname,
       };
+    case types.DISPATCH_USER_DOCUMENT:
+      return {
+        ...state,
+        id: action.document._id
+      }
     default:
       return state;
   }
