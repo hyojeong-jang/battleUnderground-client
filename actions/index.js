@@ -20,3 +20,8 @@ export const saveUser = (nickname) => ({
   type: types.SAVE_USER,
   nickname
 });
+
+export const dispatchUserDocument = (document) => ({
+  type: types.DISPATCH_USER_DOCUMENT,
+  document
+});

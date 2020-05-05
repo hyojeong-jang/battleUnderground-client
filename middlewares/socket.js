@@ -29,7 +29,7 @@ const socketMiddleware = () => {
         socket.on('joined', (participants, room) => {
           store.dispatch(socketActions.dispatchParticipants(participants));
           store.dispatch(socketActions.dispatchRoom(room));
-        })
+        });
 
         break;
       case types.DISPATCH_READY_USERS:
@@ -41,7 +41,7 @@ const socketMiddleware = () => {
         socket.emit('onReady', userInfo, action.room);
         socket.on('readyStatus', (userStatus) => {
           store.dispatch(socketActions.dispatchUserStatus(userStatus));
-        })
+        });
 
         break;
       case types.DISPATCH_USER_INITIAL_INFO:
@@ -51,7 +51,11 @@ const socketMiddleware = () => {
       case types.RECEIVE_GAME_STATUS:
         socket.on('gameStatus', (gameStatus) => {
           store.dispatch(socketActions.updateGameStatus(gameStatus));
-        })
+        });
+
+        socket.on('updatedGameResult', (topRankList, result) => {
+          store.dispatch(socketActions.updateGameResult(topRankList, result));
+        });
 
         break;
       case types.DISPATCH_MESSAGE:
@@ -65,16 +69,22 @@ const socketMiddleware = () => {
         socket.emit('updateGameInfo', action.gameInfo);
         socket.on('gameStatus', (gameStatus) => {
           store.dispatch(socketActions.updateGameStatus(gameStatus));
-        })
+        });
 
         break;
       case types.DISPATCH_GAME_RESULT:
         const result = {
           room: action.room,
           result: action.result,
-          user: action.user
-        }
+          user: action.user,
+          id: action.id,
+          gameScore: action.gameScore + 1
+        };
+
         socket.emit('gameResult', result);
+        socket.on('updatedGameResult', (topRankList, result) => {
+          store.dispatch(socketActions.updateGameResult(topRankList, result));
+        });
 
         break;
       case types.SOCKET_DISCONNECTED:

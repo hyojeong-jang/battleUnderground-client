@@ -47,6 +47,7 @@ export default function GameRoomScreen ({ navigation }) {
             user={nickname}
             room={room}
             participants={participants}
+            navigation={navigation}
           />
           : <GameReady
             user={nickname}

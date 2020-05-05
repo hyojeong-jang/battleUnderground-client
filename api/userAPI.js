@@ -9,11 +9,11 @@ const api = axios.create({
 });
 
 export const saveUserData = async (nickname, train, station) => {
-  await api.post(`/api/users/${nickname}`, {
+  const response = await api.post(`/api/users/${nickname}`, {
     data: {
       station,
       train
     }
   })
-  return;
+  return response.data.user;
 }

@@ -7,7 +7,7 @@ import { useFonts } from '@use-expo/font';
 
 import HomeHeader from '../components/HomeHeader';
 
-import { saveUser } from '../actions/index';
+import * as actions from '../actions/index';
 import { saveUserData } from '../api/userAPI';
 
 export default HomeScreen = ({ navigation }) => {
@@ -16,16 +16,17 @@ export default HomeScreen = ({ navigation }) => {
   const train = useSelector(state => state.subway.train);
   const station = useSelector(state => state.subway.station);
   const userNickname = useSelector(state => state.user.nickname);
-  const [ nickname, onChangeText ] = useState('enter your nickname');
+  const [ nickname, onChangeText ] = useState('');
 
   const [ fontsLoaded ] = useFonts({
     'silkscreen': require('../assets/fonts/silkscreen.ttf')
   });
 
   const onButtonPress = useCallback(async () => {
-    dispatch(saveUser(nickname))
-    await saveUserData(nickname, train, station);
-    navigation.navigate('GameRoom')
+    dispatch(actions.saveUser(nickname))
+    const document = await saveUserData(nickname, train, station);
+    dispatch(actions.dispatchUserDocument(document));
+    navigation.navigate('GameRoom');
   });
 
   if (fontsLoaded) {
@@ -39,6 +40,7 @@ export default HomeScreen = ({ navigation }) => {
           <TextInput
             style={styles.textInput}
             onChangeText={text => onChangeText(text)}
+            placeholder='enter your nickname'
             defaultValue={userNickname}
             value={nickname}
           />

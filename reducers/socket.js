@@ -7,12 +7,18 @@ const initialState = {
   gameStatus: [],
   selectedBoxes: [],
   winner: null,
-  score: null,
-  station: null
+  gameScore: null,
+  station: null,
+  topRank: []
 };
 
 const socket = (state = initialState, action) => {
   switch (action.type) {
+    case types.DISPATCH_USER_DOCUMENT:
+      return {
+        ...state,
+        gameScore: action.document.game_score
+      }
     case types.DISPATCH_PARTICIPANTS:
       return {
         ...state,
@@ -40,6 +46,13 @@ const socket = (state = initialState, action) => {
         selectedBoxes: action.gameStatus.map(el => {
           return el.selectedBoxes
         })
+      }
+    case types.UPDATE_GAME_RESULT:
+      return {
+        ...state,
+        winner: action.result.winner,
+        score: action.result.score,
+        topRank: action.topRankList
       }
     default:
       return state;

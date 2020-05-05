@@ -6,9 +6,13 @@ import * as socketActions from '../actions/socket';
 import TicTacToe from '../games/Tic-Tac-Toe';
 import Chat from '../containers/Chat';
 
-export default GameContainer = ({ user, room, participants }) => {
+export default GameContainer = ({ user, room, participants, navigation }) => {
   const dispatch = useDispatch();
+
+  const id = useSelector(state => state.user.id);
   const station = useSelector(state => state.subway.train);
+  const isWinner = useSelector(state => state.socket.winner);
+  const gameScore = useSelector(state => state.socket.gameScore);
   const gameStatus = useSelector(state => state.socket.gameStatus);
   const selectedBoxes = useSelector(state => state.socket.selectedBoxes);
 
@@ -55,7 +59,7 @@ export default GameContainer = ({ user, room, participants }) => {
   })
 
   const dispatchGameResult = useCallback((room, result, user) => {
-    dispatch(socketActions.dispatchGameResult(room, result, user));
+    dispatch(socketActions.dispatchGameResult(room, result, user, id, gameScore));
   })
 
   return (
@@ -73,11 +77,15 @@ export default GameContainer = ({ user, room, participants }) => {
         : <View style={styles.mainSection}>
           <TicTacToe
             style={styles.game}
+            id={id}
             user={user}
             room={room}
             initialTurn={turn}
+            isWinner={isWinner}
             opponent={opponent}
+            gameScore={gameScore}
             gameStatus={gameStatus}
+            navigation={navigation}
             selectedBoxes={selectedBoxes}
             updateGameInfo={updateGameInfo}
             receiveGameStatus={receiveGameStatus}

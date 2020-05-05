@@ -73,9 +73,17 @@ export const receiveGameStatus = (room) => ({
   room
 });
 
-export const dispatchGameResult = (room, result, user) => ({
+export const dispatchGameResult = (room, result, user, id, gameScore) => ({
   type: types.DISPATCH_GAME_RESULT,
   room,
   result,
-  user
+  user,
+  id,
+  gameScore
 });
+
+export const updateGameResult = (topRankList, result) => ({
+  type: types.UPDATE_GAME_RESULT,
+  topRankList,
+  result
+})

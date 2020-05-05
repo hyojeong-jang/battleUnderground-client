@@ -1,11 +1,16 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { View, TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
+import _ from 'lodash';
 
 export default TicTacToe = ({
+  id,
   user,
   room,
   opponent,
+  isWinner,
+  gameScore,
   gameStatus,
+  navigation,
   initialTurn,
   selectedBoxes,
   updateGameInfo,
@@ -13,9 +18,11 @@ export default TicTacToe = ({
   dispatchGameResult
 }) => {
   const winningCase = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
+
   const [ turn, setTurn ] = useState(initialTurn);
   const [ userSelected, setUserSelected ] = useState([]);
   const [ opponentSelected, setOpponentSelected ] =  useState([]);
+
   const selected = userSelected.concat(opponentSelected);
 
   const onBoxPress = useCallback((box) => {
@@ -32,7 +39,8 @@ export default TicTacToe = ({
 
   useEffect(() => {
     receiveGameStatus(room);
-  }, [gameStatus])
+  }, [gameStatus, isWinner])
+
 
   useEffect(() => {
     gameStatus.forEach((el) => {
@@ -50,10 +58,11 @@ export default TicTacToe = ({
     }
 
     if (userSelected.length >= 3) {
-      winningCase.forEach((oneCase) => {
-        const result = oneCase.every(num => userSelected.includes(num));
-        if (result) {
-          return dispatchGameResult(room, 'win', user);
+      winningCase.some((oneCase) => {
+        const result = _.xor(oneCase, userSelected);
+        if (result.length === userSelected.length - 3) {
+          dispatchGameResult(room, 'win', user, id, gameScore);
+          return navigation.navigate('GameResult');
         }
       })
     }
