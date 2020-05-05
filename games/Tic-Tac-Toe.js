@@ -6,8 +6,8 @@ export default TicTacToe = ({
   id,
   user,
   room,
+  winner,
   opponent,
-  isWinner,
   gameScore,
   gameStatus,
   navigation,
@@ -39,8 +39,10 @@ export default TicTacToe = ({
 
   useEffect(() => {
     receiveGameStatus(room);
-  }, [gameStatus, isWinner])
-
+    if (winner.length) {
+      navigation.navigate('GameResult');
+    }
+  }, [gameStatus, winner])
 
   useEffect(() => {
     gameStatus.forEach((el) => {
@@ -61,12 +63,13 @@ export default TicTacToe = ({
       winningCase.some((oneCase) => {
         const result = _.xor(oneCase, userSelected);
         if (result.length === userSelected.length - 3) {
-          dispatchGameResult(room, 'win', user, id, gameScore);
-          return navigation.navigate('GameResult');
+          return dispatchGameResult(room, 'win', user, id, gameScore);
         }
       })
     }
   }, [selectedBoxes]);
+
+  // return navigation.navigate('GameResult');
 
   return (
     <View style={styles.container}>

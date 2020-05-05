@@ -6,7 +6,7 @@ const initialState = {
   chatList: [],
   gameStatus: [],
   selectedBoxes: [],
-  winner: null,
+  winner: [],
   gameScore: null,
   station: null,
   topRank: []
@@ -50,8 +50,10 @@ const socket = (state = initialState, action) => {
     case types.UPDATE_GAME_RESULT:
       return {
         ...state,
-        winner: action.result.winner,
-        score: action.result.score,
+        winner: action.result.map(el => {
+          return { isWinner: el.winner, nickname: el.name }
+        }),
+        gameStatus: action.result,
         topRank: action.topRankList
       }
     default:

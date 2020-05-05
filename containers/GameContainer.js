@@ -10,8 +10,8 @@ export default GameContainer = ({ user, room, participants, navigation }) => {
   const dispatch = useDispatch();
 
   const id = useSelector(state => state.user.id);
+  const winner = useSelector(state => state.socket.winner);
   const station = useSelector(state => state.subway.train);
-  const isWinner = useSelector(state => state.socket.winner);
   const gameScore = useSelector(state => state.socket.gameScore);
   const gameStatus = useSelector(state => state.socket.gameStatus);
   const selectedBoxes = useSelector(state => state.socket.selectedBoxes);
@@ -80,8 +80,8 @@ export default GameContainer = ({ user, room, participants, navigation }) => {
             id={id}
             user={user}
             room={room}
+            winner={winner}
             initialTurn={turn}
-            isWinner={isWinner}
             opponent={opponent}
             gameScore={gameScore}
             gameStatus={gameStatus}
