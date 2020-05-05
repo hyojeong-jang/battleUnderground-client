@@ -48,6 +48,12 @@ const socketMiddleware = () => {
         socket.emit('initialInfo', action.initialInfo)
 
         break;
+      case types.RECEIVE_GAME_STATUS:
+        socket.on('gameStatus', (gameStatus) => {
+          store.dispatch(socketActions.updateGameStatus(gameStatus));
+        })
+
+        break;
       case types.DISPATCH_MESSAGE:
         socket.emit('message', action.room, action.messageInfo);
         socket.on('messageList', (chat) => {
@@ -60,6 +66,15 @@ const socketMiddleware = () => {
         socket.on('gameStatus', (gameStatus) => {
           store.dispatch(socketActions.updateGameStatus(gameStatus));
         })
+
+        break;
+      case types.DISPATCH_GAME_RESULT:
+        const result = {
+          room: action.room,
+          result: action.result,
+          user: action.user
+        }
+        socket.emit('gameResult', result);
 
         break;
       case types.SOCKET_DISCONNECTED:

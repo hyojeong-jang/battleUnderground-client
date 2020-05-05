@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 import * as socketActions from '../actions/socket';
 

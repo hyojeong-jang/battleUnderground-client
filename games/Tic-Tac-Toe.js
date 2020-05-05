@@ -4,30 +4,35 @@ import { View, TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
 export default TicTacToe = ({
   user,
   room,
-  initialTurn,
   opponent,
   gameStatus,
-  updateGameInfo
+  initialTurn,
+  selectedBoxes,
+  updateGameInfo,
+  receiveGameStatus,
+  dispatchGameResult
 }) => {
+  const winningCase = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
   const [ turn, setTurn ] = useState(initialTurn);
   const [ userSelected, setUserSelected ] = useState([]);
   const [ opponentSelected, setOpponentSelected ] =  useState([]);
+  const selected = userSelected.concat(opponentSelected);
 
   const onBoxPress = useCallback((box) => {
-    setTurn(!turn)
-    if (turn) {
+    if (turn && !selectedBoxes.includes(box)) {
       const gameInfo = {
         room,
         name: user,
-        turn,
-        // turn: !initialTurn,
+        turn: !turn,
         selectBox: box
       };
       updateGameInfo(gameInfo);
-    } else {
-      console.log('----------------not my turn--------------------')
     }
-  }, [turn]);
+  });
+
+  useEffect(() => {
+    receiveGameStatus(room);
+  }, [gameStatus])
 
   useEffect(() => {
     gameStatus.forEach((el) => {
@@ -35,14 +40,28 @@ export default TicTacToe = ({
         setTurn(el.turn);
         setUserSelected(el.selectedBoxes);
       } else {
+        setTurn(!el.turn);
         setOpponentSelected(el.selectedBoxes);
       }
     })
-  }, [gameStatus]);
+
+    if (selected.length === 9) {
+      return dispatchGameResult('draw');
+    }
+
+    if (userSelected.length >= 3) {
+      winningCase.forEach((oneCase) => {
+        const result = oneCase.every(num => userSelected.includes(num));
+        if (result) {
+          return dispatchGameResult(room, 'win', user);
+        }
+      })
+    }
+  }, [selectedBoxes]);
 
   return (
     <View style={styles.container}>
-      { [1, 2, 3, 4, 5, 6, 7, 8, 9].map((el,idx) => {
+      { [0, 1, 2, 3, 4, 5, 6, 7, 8].map((el,idx) => {
         return <TouchableOpacity
           key={idx}
           style={styles.boxContainer}
@@ -84,7 +103,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     alignItems: 'center',
-    backgroundColor: '#333300',
+    backgroundColor: '#ffcc00',
     borderColor: 'black',
     borderWidth: 3,
     borderStyle: 'solid'

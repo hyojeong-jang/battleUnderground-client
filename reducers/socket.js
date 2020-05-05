@@ -5,6 +5,7 @@ const initialState = {
   participants: [],
   chatList: [],
   gameStatus: [],
+  selectedBoxes: [],
   winner: null,
   score: null,
   station: null
@@ -35,7 +36,10 @@ const socket = (state = initialState, action) => {
     case types.UPDATE_GAME_STATUS:
       return {
         ...state,
-        gameStatus: action.gameStatus
+        gameStatus: action.gameStatus,
+        selectedBoxes: action.gameStatus.map(el => {
+          return el.selectedBoxes
+        })
       }
     default:
       return state;

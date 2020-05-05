@@ -10,6 +10,7 @@ export default GameContainer = ({ user, room, participants }) => {
   const dispatch = useDispatch();
   const station = useSelector(state => state.subway.train);
   const gameStatus = useSelector(state => state.socket.gameStatus);
+  const selectedBoxes = useSelector(state => state.socket.selectedBoxes);
 
   const [ turn, setTurn ] = useState(null);
   const [ opponent, setOpponent ] = useState(null);
@@ -43,10 +44,18 @@ export default GameContainer = ({ user, room, participants }) => {
     setTimeout(() => {
       setStartSign(false);
     }, 3000);
-  }, [])
+  }, []);
+
+  const receiveGameStatus = useCallback((room) => {
+    dispatch(socketActions.receiveGameStatus(room));
+  })
 
   const updateGameInfo = useCallback((info) => {
     dispatch(socketActions.updateGameInfo(info));
+  })
+
+  const dispatchGameResult = useCallback((room, result, user) => {
+    dispatch(socketActions.dispatchGameResult(room, result, user));
   })
 
   return (
@@ -69,7 +78,10 @@ export default GameContainer = ({ user, room, participants }) => {
             initialTurn={turn}
             opponent={opponent}
             gameStatus={gameStatus}
+            selectedBoxes={selectedBoxes}
             updateGameInfo={updateGameInfo}
+            receiveGameStatus={receiveGameStatus}
+            dispatchGameResult={dispatchGameResult}
           />
           <Chat
             style={styles.chat}

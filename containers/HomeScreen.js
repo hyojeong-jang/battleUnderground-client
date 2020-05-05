@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 
@@ -21,6 +21,13 @@ export default HomeScreen = ({ navigation }) => {
   const [ fontsLoaded ] = useFonts({
     'silkscreen': require('../assets/fonts/silkscreen.ttf')
   });
+
+  const onButtonPress = useCallback(async () => {
+    dispatch(saveUser(nickname))
+    await saveUserData(nickname, train, station);
+    navigation.navigate('GameRoom')
+  });
+
   if (fontsLoaded) {
     return (
       <View style={styles.container}>
@@ -38,11 +45,7 @@ export default HomeScreen = ({ navigation }) => {
         </View>
         <TouchableOpacity
           style={styles.buttonContainer}
-          onPress={() => {
-            dispatch(saveUser(nickname))
-            saveUserData(nickname, train, station)
-            navigation.navigate('GameRoom')
-          }}
+          onPress={onButtonPress}
         >
           <Text style={styles.enterButton}>
             Start a game
