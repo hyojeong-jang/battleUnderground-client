@@ -15,5 +15,12 @@ export const saveUserData = async (nickname, train, station) => {
       train
     }
   })
-  return response.data.user;
+  return response.data.userDocument;
+}
+
+export const receiveUserData = async (id, nickname) => {
+  const response = await api.put(`/api/users/${id}`, {
+    data: nickname
+  });
+  return response.data.userDocument;
 }

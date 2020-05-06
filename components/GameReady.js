@@ -14,7 +14,8 @@ export default GameReady = ({
       if (participant.ready) readyCount += 1;
       if (readyCount === 2) setAllReady(true);
     });
-  }, [participants])
+  }, [participants]);
+
   return (
     <View style={styles.container}>
       <View style={styles.gameSection}>

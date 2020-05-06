@@ -8,14 +8,16 @@ import { useFonts } from '@use-expo/font';
 import HomeHeader from '../components/HomeHeader';
 
 import * as actions from '../actions/index';
-import { saveUserData } from '../api/userAPI';
+import { saveUserData, receiveUserData } from '../api/userAPI';
 
 export default HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
+  const id = useSelector(state => state.user.id);
   const train = useSelector(state => state.subway.train);
   const station = useSelector(state => state.subway.station);
   const userNickname = useSelector(state => state.user.nickname);
+
   const [ nickname, onChangeText ] = useState('');
 
   const [ fontsLoaded ] = useFonts({
@@ -23,9 +25,15 @@ export default HomeScreen = ({ navigation }) => {
   });
 
   const onButtonPress = useCallback(async () => {
-    dispatch(actions.saveUser(nickname))
-    const document = await saveUserData(nickname, train, station);
-    dispatch(actions.dispatchUserDocument(document));
+    dispatch(actions.saveUser(nickname));
+
+    if (id) {
+      const document = await receiveUserData(id, nickname);
+      dispatch(actions.dispatchExistUserDocument(document));
+    } else  {
+      const document = await saveUserData(nickname, train, station);
+      dispatch(actions.dispatchUserDocument(document));
+    }
     navigation.navigate('GameRoom');
   });
 

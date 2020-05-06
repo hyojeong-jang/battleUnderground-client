@@ -9,7 +9,7 @@ const initialState = {
   winner: [],
   gameScore: null,
   station: null,
-  topRank: []
+  topRanking: []
 };
 
 const socket = (state = initialState, action) => {
@@ -54,7 +54,26 @@ const socket = (state = initialState, action) => {
           return { isWinner: el.winner, nickname: el.name }
         }),
         gameStatus: action.result,
-        topRank: action.topRankList
+        topRanking: action.topRankList
+      }
+    case types.DISPATCH_EXIST_USER_DOCUMENT:
+      return {
+        ...state,
+        participants: [],
+        chatList: [],
+        gameStatus: [],
+        selectedBoxes: [],
+        winner: [],
+        gameScore: action.document.game_score,
+        station: action.document.station
+      }
+    case types.CLEAR_GAME_STATUS:
+      return {
+        ...state,
+        chatList: [],
+        gameStatus: [],
+        selectedBoxes: [],
+        winner: []
       }
     default:
       return state;

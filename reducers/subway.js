@@ -17,6 +17,12 @@ const subway = (state = initialState, action) => {
         ...state,
         train: action.train
       }
+    case types.DISPATCH_EXIST_USER_DOCUMENT:
+      return {
+        ...state,
+        station: action.document.station,
+        train: action.document.train
+      }
     default:
       return state;
   }

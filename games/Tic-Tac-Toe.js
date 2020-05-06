@@ -8,6 +8,7 @@ export default TicTacToe = ({
   room,
   winner,
   opponent,
+  socketOff,
   gameScore,
   gameStatus,
   navigation,
@@ -42,6 +43,10 @@ export default TicTacToe = ({
     if (winner.length) {
       navigation.navigate('GameResult');
     }
+    return () => {
+      socketOff('gameStatus');
+      socketOff('updatedGameResult');
+    };
   }, [gameStatus, winner])
 
   useEffect(() => {
@@ -56,7 +61,7 @@ export default TicTacToe = ({
     })
 
     if (selected.length === 9) {
-      return dispatchGameResult('draw');
+      return dispatchGameResult(room, 'draw');
     }
 
     if (userSelected.length >= 3) {
@@ -68,8 +73,6 @@ export default TicTacToe = ({
       })
     }
   }, [selectedBoxes]);
-
-  // return navigation.navigate('GameResult');
 
   return (
     <View style={styles.container}>

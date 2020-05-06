@@ -25,3 +25,12 @@ export const dispatchUserDocument = (document) => ({
   type: types.DISPATCH_USER_DOCUMENT,
   document
 });
+
+export const dispatchExistUserDocument = (document) => ({
+  type: types.DISPATCH_EXIST_USER_DOCUMENT,
+  document
+});
+
+export const clearGameStatus = () => ({
+  type: types.CLEAR_GAME_STATUS
+});

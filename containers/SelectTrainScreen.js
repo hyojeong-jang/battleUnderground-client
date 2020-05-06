@@ -21,7 +21,7 @@ export default function SelectTrainScreen ({ navigation }) {
       setTrainList(response);
     })
   }, [navigation])
-
+// 위치 받는 로직.. 다시 ..여기에..
   const onPressButton = useCallback(() => {
     dispatch(selectedTrain(train));
     navigation.navigate('Home');

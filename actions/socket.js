@@ -87,3 +87,13 @@ export const updateGameResult = (topRankList, result) => ({
   topRankList,
   result
 })
+
+export const closeGameRoom = (room) => ({
+  type: types.CLOSE_GAME_ROOM,
+  room
+});
+
+export const socketOff = (event) => ({
+  type: types.SOCKET_OFF,
+  event
+});

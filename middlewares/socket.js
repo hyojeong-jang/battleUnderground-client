@@ -87,12 +87,21 @@ const socketMiddleware = () => {
         });
 
         break;
-      case types.SOCKET_DISCONNECTED:
+      case types.SOCKET_OFF:
+        if (socket !== null) {
+          socket.off(action.event);
+        }
+
+        break;
+      case types.CLOSE_GAME_ROOM:
+        socket.emit('closeGameRoom', action.room);
+
         if (socket !== null) {
           socket.close();
         }
         socket = null;
         console.log('socket closed');
+
         break;
       default:
         return next(action);

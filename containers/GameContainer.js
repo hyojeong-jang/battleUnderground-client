@@ -62,6 +62,10 @@ export default GameContainer = ({ user, room, participants, navigation }) => {
     dispatch(socketActions.dispatchGameResult(room, result, user, id, gameScore));
   })
 
+  const socketOff = useCallback((event) => {
+    dispatch(socketActions.socketOff(event));
+  })
+
   return (
     <View style={styles.container}>
       {
@@ -83,6 +87,7 @@ export default GameContainer = ({ user, room, participants, navigation }) => {
             winner={winner}
             initialTurn={turn}
             opponent={opponent}
+            socketOff={socketOff}
             gameScore={gameScore}
             gameStatus={gameStatus}
             navigation={navigation}
