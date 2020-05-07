@@ -1,24 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, Button } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { receiveLocation } from '../actions/index';
 
 import { AppLoading } from 'expo';
-import * as Location from 'expo-location';
 import { useFonts } from '@use-expo/font';
+import locationAPI from '../api/locationAPI';
 
 export default function StartScreen ({ navigation }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
     (async () => {
-      let { status } = await Location.requestPermissionsAsync();
-      if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
-      }
-
-      let location = await Location.getCurrentPositionAsync({});
-      dispatch(receiveLocation(location.coords.latitude, location.coords.longitude));
+      const location = await locationAPI();
+      dispatch(receiveLocation(location.latitude, location.longitude));
     })();
   }, []);
 

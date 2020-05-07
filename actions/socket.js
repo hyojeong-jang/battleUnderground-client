@@ -5,6 +5,11 @@ export const socketConnect = (train) => ({
   train
 });
 
+export const dispatchTrain = (train) => ({
+  type: types.DISPATCH_TRAIN,
+  train
+});
+
 export const socketDisconnected = () => ({
   type: types.SOCKET_DISCONNECTED
 });

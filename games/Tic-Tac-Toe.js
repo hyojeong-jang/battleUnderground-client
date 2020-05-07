@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     marginTop: '2%',
     marginBottom: '2%',
     width: '95%',
-    height: '50%',
+    height: '92%',
   },
   box: {
     width: '100%',

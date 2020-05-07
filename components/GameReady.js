@@ -22,6 +22,7 @@ export default GameReady = ({
         {
           participants[0]
           && <TouchableOpacity
+            style={styles.readyButton}
             onPress={() => {
               participants[0].name === user
               && dispatchReadyUsers()
@@ -38,6 +39,7 @@ export default GameReady = ({
         {
           participants[1]
           && <TouchableOpacity
+            style={styles.readyButton2}
             onPress={() => {
               participants[1].name === user
               && dispatchReadyUsers();
@@ -61,14 +63,21 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
-    alignContent: 'center',
-  },
-  readyButton: {
-    alignContent: 'center'
+    borderColor: 'black',
+    borderStyle: 'solid',
+    borderWidth: 3,
+    width: '98%',
+    marginBottom: '2%',
+    marginTop: '2%',
+    backgroundColor: 'white'
   },
   user: {
     fontFamily: 'dunggeunmo',
-    fontSize: 20
+    fontSize: 20,
+    textAlign: 'center',
+    marginBottom: '5%'
+  },
+  gameSection: {
+    alignSelf: 'center',
   }
 });

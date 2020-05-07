@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
 export default GameResultDetail = ({
   isWinner,
-  onHomePress,
+  onTransferPress,
   onAnotherRoomPress,
   onOneMoreRoundPress,
   onTopRankingButtonPress
@@ -12,8 +12,8 @@ export default GameResultDetail = ({
     <View style={styles.container}>
       {
         isWinner
-        ? isWinner === 'true'
-          ? <Image style={styles.image} source={require('../assets/images/win.gif')} />
+        ? isWinner === 'draw'
+          ? <Image style={styles.image} source={require('../assets/images/draw.gif')} />
           : <Image style={styles.image} source={require('../assets/images/win.gif')} />
         : <Image style={styles.image} source={require('../assets/images/lose.gif')} />
       }
@@ -23,11 +23,11 @@ export default GameResultDetail = ({
         onPress={onOneMoreRoundPress}
       >
         <Text style={styles.text}>
-          One more round
+          oneMoreRound
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={styles.anotherRoom}
+        style={styles.button}
         onPress={onAnotherRoomPress}
       >
         <Text style={styles.text}>
@@ -35,18 +35,18 @@ export default GameResultDetail = ({
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={styles.home}
-        onPress={onHomePress}
+        style={styles.button}
+        onPress={onTransferPress}
       >
         <Text style={styles.text}>
-          Home
+          Transfer
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={styles.topRankingBoard}
+        style={styles.button}
         onPress={onTopRankingButtonPress}
       >
-        <Text style={styles.text}>
+        <Text style={styles.topRankText}>
           Top Rank Board
         </Text>
       </TouchableOpacity>
@@ -63,38 +63,49 @@ const styles = StyleSheet.create({
     alignContent: 'center',
   },
   title: {
-    fontFamily: 'silkscreen',
+    fontFamily: 'dunggeunmo',
     textAlign: 'center',
-    fontSize: 40
+    fontSize: 40,
+    marginBottom: 30
   },
   image: {
-    width: '25%',
-    height: '15%',
+    width: '30%',
+    height: '18%',
     alignSelf: 'center'
   },
   text: {
     fontFamily: 'dunggeunmo',
     fontSize: 20,
-    textAlign: 'center'
+    textAlign: 'center',
+    marginTop: 5
   },
   oneMoreRound: {
     marginTop: 30,
-    backgroundColor: 'green',
+    borderStyle: 'solid',
+    borderWidth: 3,
+    borderColor: 'black',
+    width: '50%',
+    borderRadius: 50,
+    alignSelf: 'center',
+    backgroundColor: '#9a9a9a',
     height: 40
   },
-  anotherRoom: {
+  button: {
     marginTop: 30,
-    backgroundColor: 'blue',
+    borderStyle: 'solid',
+    borderWidth: 3,
+    borderColor: 'black',
+    width: '50%',
+    borderRadius: 50,
+    alignSelf: 'center',
+    backgroundColor: '#dddddd',
     height: 40
   },
-  home: {
-    marginTop: 30,
-    backgroundColor: 'purple',
-    height: 40
-  },
-  topRankingBoard: {
-    marginTop: 30,
-    backgroundColor: 'red',
-    height: 40
+  topRankText: {
+    fontFamily: 'dunggeunmo',
+    fontSize: 20,
+    textAlign: 'center',
+    marginTop: 5,
+    color: 'red'
   }
 })

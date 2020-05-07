@@ -4,7 +4,6 @@ import { View, Text, StyleSheet } from 'react-native';
 
 import * as socketActions from '../actions/socket';
 import TicTacToe from '../games/Tic-Tac-Toe';
-import Chat from '../containers/Chat';
 
 export default GameContainer = ({ user, room, participants, navigation }) => {
   const dispatch = useDispatch();
@@ -70,12 +69,15 @@ export default GameContainer = ({ user, room, participants, navigation }) => {
     <View style={styles.container}>
       {
         startSign
-        ? <View>
+        ? <View style={styles.ready}>
           <Text style={styles.firstTurn}>
             {`${turn ? user : opponent }'s turn`}
           </Text>
           <Text style={styles.secondTurn}>
             {`next is ${turn ? opponent : user}`}
+          </Text>
+          <Text style={styles.description}>
+            Three pockemon have to meet!
           </Text>
         </View>
         : <View style={styles.mainSection}>
@@ -96,11 +98,6 @@ export default GameContainer = ({ user, room, participants, navigation }) => {
             receiveGameStatus={receiveGameStatus}
             dispatchGameResult={dispatchGameResult}
           />
-          <Chat
-            style={styles.chat}
-            nickname={user}
-            room={room}
-          />
         </View>
       }
     </View>
@@ -112,10 +109,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    backgroundColor: '#dddddd',
+    width: '98%'
   },
   mainSection: {
-    flex: 1,
     flexDirection: 'column'
   },
   firstTurn : {
@@ -127,6 +125,21 @@ const styles = StyleSheet.create({
   secondTurn: {
     fontSize: 15,
     marginTop: 5,
+    textAlign: 'center',
+    fontFamily: 'dunggeunmo',
+  },
+  ready: {
+    justifyContent: 'center',
+    borderWidth: 3,
+    borderColor: 'black',
+    borderStyle: 'solid',
+    width: '100%',
+    height: '95%',
+    backgroundColor: 'white',
+  },
+  description: {
+    fontSize: 20,
+    marginTop: 30,
     textAlign: 'center',
     fontFamily: 'dunggeunmo',
   }

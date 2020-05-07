@@ -8,7 +8,8 @@ import SelectTrainScreen from '../containers/SelectTrainScreen';
 import HomeScreen from '../containers/HomeScreen';
 import GameRoomScreen from '../containers/GameRoomScreen';
 import GameResultScreen from '../containers/GameResultScreen';
-import TopRanking from '../containers/TopRanking';
+import TopRankingScreen from '../containers/TopRankingScreen';
+import TransferScreen from '../containers/TransferScreen';
 
 const Stack = createStackNavigator();
 
@@ -22,7 +23,8 @@ export default function RootStack() {
         <Stack.Screen name='Home' component={HomeScreen} />
         <Stack.Screen name='GameRoom' component={GameRoomScreen} />
         <Stack.Screen name='GameResult' component={GameResultScreen} />
-        <Stack.Screen name='TopRanking' component={TopRanking} />
+        <Stack.Screen name='TopRanking' component={TopRankingScreen} />
+        <Stack.Screen name='Transfer' component={TransferScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

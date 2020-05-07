@@ -19,23 +19,20 @@ export default GameResultScreen = ({ navigation }) => {
   const nickname = useSelector(state => state.user.nickname);
 
   const onOneMoreRoundPress = useCallback(() => {
-    dispatch(actions.clearGameStatus());
-    navigation.navigate('GameRoom');
-  })
+    // dispatch(actions.clearGameStatus());
+  });
 
   const onAnotherRoomPress = useCallback(() => {
     dispatch(socketActions.closeGameRoom(room));
-    // user_id와 닉네임 제외하고 스토어 초기화...
+    navigation.navigate('Home');
   });
 
-  const onHomePress = useCallback(() => {
-    dispatch(socketActions.closeGameRoom(room));
-    // user_id와 닉네임 제외하고 스토어 초기화...
+  const onTransferPress = useCallback(() => {
+    navigation.navigate('Transfer');
   });
 
   const onTopRankingButtonPress = useCallback(() => {
     navigation.navigate('TopRanking');
-    dispatch(socketActions.closeGameRoom());
   });
 
   useEffect(() => {
@@ -45,7 +42,7 @@ export default GameResultScreen = ({ navigation }) => {
           return setIsWinner(user.isWinner);
         }
       });
-    })
+    });
   }, [navigation]);
 
   const [fontsLoaded] = useFonts({
@@ -58,7 +55,7 @@ export default GameResultScreen = ({ navigation }) => {
       <View style={styles.container}>
         <GameResultDetail
           isWinner={isWinner}
-          onHomePress={onHomePress}
+          onTransferPress={onTransferPress}
           onAnotherRoomPress={onAnotherRoomPress}
           onOneMoreRoundPress={onOneMoreRoundPress}
           onTopRankingButtonPress={onTopRankingButtonPress}

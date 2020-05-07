@@ -4,7 +4,7 @@ import reduxLogger from 'redux-logger';
 import reduxThunk from 'redux-thunk';
 
 import socketMiddleware from '../middlewares/socket';
-// reduxLogger,
+
 const middleware = [reduxThunk, socketMiddleware];
 
 const store = createStore(

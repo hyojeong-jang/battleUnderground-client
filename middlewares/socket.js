@@ -1,4 +1,5 @@
 import * as socketActions from '../actions/socket';
+import * as actions from '../actions/index';
 import * as types from '../constants/index'
 import getEnvVars from '../environment';
 import io from 'socket.io-client';
@@ -17,6 +18,9 @@ const socketMiddleware = () => {
 
         socket = io(HOST_URL);
         socket.emit('connected', action.train);
+        socket.on('connected', (train) => {
+          store.dispatch(socketActions.dispatchTrain(train));
+        });
 
         break;
       case types.SOCKET_JOIN:
@@ -26,9 +30,9 @@ const socketMiddleware = () => {
         };
 
         socket.emit('joinRoom', joinInfo);
-        socket.on('joined', (participants, room) => {
+        socket.on('joined', (participants, roomId) => {
           store.dispatch(socketActions.dispatchParticipants(participants));
-          store.dispatch(socketActions.dispatchRoom(room));
+          store.dispatch(socketActions.dispatchRoom(roomId));
         });
 
         break;
@@ -95,6 +99,7 @@ const socketMiddleware = () => {
         break;
       case types.CLOSE_GAME_ROOM:
         socket.emit('closeGameRoom', action.room);
+        store.dispatch(actions.clearGameStatus());
 
         if (socket !== null) {
           socket.close();

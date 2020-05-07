@@ -31,6 +31,9 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderWidth: 3,
     borderColor: 'black',
-    height: '45%'
+    height: '43%',
+    width: '98%',
+    marginBottom: '2%',
+    backgroundColor: 'white'
   }
 });

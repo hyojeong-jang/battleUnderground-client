@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import GameReady from '../components/GameReady';
 import GameRoomHeader from '../components/GameRoomHeader';
 import GameContainer from '../containers/GameContainer';
+import Chat from '../containers/Chat';
 
 import * as socketActions from '../actions/socket';
 
@@ -50,12 +51,18 @@ export default function GameRoomScreen ({ navigation }) {
             navigation={navigation}
           />
           : <GameReady
+            style={styles.ready}
             user={nickname}
             setAllReady={setAllReady}
             participants={participants}
             dispatchReadyUsers={dispatchReadyUsers}
           />
         }
+        <Chat
+          style={styles.chat}
+          nickname={nickname}
+          room={room}
+        />
       </View>
     );
   } else {
@@ -69,13 +76,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#dddddd',
     paddingTop: 25,
-  },
-  header: {
-    flex: 1
-  },
-  game: {
-    flex: 9
   }
 });

@@ -11,16 +11,16 @@ export default ChatDetail = ({ dispatchMessage, nickname, room, chatList }) => {
   }, [message]);
 
   return (
-    // <KeyboardAvoidingView behavior='padding'>
-      <ScrollView style={styles.container}>
+    <ScrollView style={styles.container}>
+      <KeyboardAvoidingView
+        style={styles.inner}
+        behavior='padding'>
         <View style={styles.messages}>
-          {
-            chatList.map((chat, idx) => {
-              return <View key={idx}>
-                <Text style={styles.message}>{`${chat.nickname}: ${chat.content}`}</Text>
-              </View>
-            })
-          }
+          { chatList.map((chat, idx) => {
+            return <View key={idx}>
+              <Text style={styles.message}>{`${chat.nickname}: ${chat.content}`}</Text>
+            </View>
+          })}
         </View>
         <View style={styles.inputContainer}>
           <TextInput
@@ -35,40 +35,54 @@ export default ChatDetail = ({ dispatchMessage, nickname, room, chatList }) => {
             <Text style={styles.buttonText}>send</Text>
           </TouchableOpacity>
         </View>
-      </ScrollView>
-    // </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: 'column'
+    height: '100%',
+  },
+  inner: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
   },
   inputContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignContent: 'flex-end',
+    flex: 1,
+    borderTopWidth: 3,
+    borderTopColor: 'black',
+    borderStyle: 'solid',
+    height: '100%',
   },
   input: {
-    width: '80%',
-    height: 30,
+    height: '100%',
+    width: '90%',
     fontFamily: 'dunggeunmo',
+    backgroundColor: 'white'
   },
   sendButton: {
     width: '10%',
-    height: 30,
+    height: '100%',
+    backgroundColor: 'white'
   },
   buttonText: {
+    fontSize: 15,
     fontFamily: 'dunggeunmo'
   },
   messages: {
-    height: 240,
+    flex: 1,
     borderBottomColor: 'black',
     borderStyle: 'solid',
-    borderBottomWidth: 3
+    height: 250,
+    padding: 15
   },
   message: {
-    fontFamily: 'dunggeunmo'
+    fontFamily: 'dunggeunmo',
+    marginBottom: 7
   }
 });

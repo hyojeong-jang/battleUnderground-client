@@ -5,8 +5,6 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 import { AppLoading } from 'expo';
 import { useFonts } from '@use-expo/font';
 
-import HomeHeader from '../components/HomeHeader';
-
 import * as actions from '../actions/index';
 import { saveUserData, receiveUserData } from '../api/userAPI';
 
@@ -21,7 +19,8 @@ export default HomeScreen = ({ navigation }) => {
   const [ nickname, onChangeText ] = useState('');
 
   const [ fontsLoaded ] = useFonts({
-    'silkscreen': require('../assets/fonts/silkscreen.ttf')
+    'silkscreen': require('../assets/fonts/silkscreen.ttf'),
+    'dunggeunmo': require('../assets/fonts/DungGeunMo.ttf')
   });
 
   const onButtonPress = useCallback(async () => {
@@ -40,10 +39,7 @@ export default HomeScreen = ({ navigation }) => {
   if (fontsLoaded) {
     return (
       <View style={styles.container}>
-        <HomeHeader
-          style={styles.header}
-          trainInfo={train}
-        />
+        <Text style={styles.header}>{train}</Text>
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.textInput}
@@ -53,15 +49,9 @@ export default HomeScreen = ({ navigation }) => {
             value={nickname}
           />
         </View>
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={onButtonPress}
-        >
+        <TouchableOpacity onPress={onButtonPress}>
           <Text style={styles.enterButton}>
-            Start a game
-          </Text>
-          <Text style={styles.enterButton}>
-            with someone on this train
+            {`Start a game\nwith\nsomeone on this train`}
           </Text>
         </TouchableOpacity>
       </View>
@@ -77,29 +67,33 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#9a9a9a'
   },
   header: {
     width: '90%',
-    height: '10%',
-    marginTop: '30%'
+    height: '5%',
+    fontSize: 15,
+    fontFamily: 'dunggeunmo',
+    textAlign: 'center',
+    color: 'white',
   },
   inputContainer: {
-    flex: 3,
     width:'80%',
   },
   textInput: {
-    borderColor: 'black',
+    borderColor: 'white',
+    color: 'white',
+    textDecorationColor: 'white',
     borderWidth: 3,
-    height: '10%',
-    fontFamily: 'silkscreen'
+    padding: 10,
+    height: 50,
+    fontFamily: 'silkscreen',
+    marginBottom: '10%'
   },
   enterButton: {
     fontFamily: 'silkscreen',
     textAlign: 'center',
-    fontSize: 17,
-    color: 'red'
-  },
-  buttonContainer: {
-    flex: 3,
+    fontSize: 20,
+    color: 'white'
   }
 });

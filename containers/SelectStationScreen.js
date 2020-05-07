@@ -13,12 +13,14 @@ import SelectStation from '../components/SelectStationDetail';
 
 export default function SelectStationScreen ({ navigation }) {
   const dispatch = useDispatch();
+
   const longitude = useSelector(state => state.location.longitude);
   const latitude = useSelector(state => state.location.latitude);
 
   const [ currentLocation, setCurrentLocation ] = useState('');
   const [ stationList, setStationList ] = useState(null);
   const [ station, setStation ] = useState(null);
+
 
   useEffect(() => {
     return navigation.addListener('focus', async () => {
