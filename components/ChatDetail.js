@@ -1,12 +1,13 @@
 import React, { useState, useCallback } from 'react';
 import { View, ScrollView, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, StyleSheet } from 'react-native';
 
-export default ChatDetail = ({ dispatchMessage, nickname, room, chatList }) => {
+export default ChatDetail = ({ dispatchMessage, receiveChatList, nickname, room, chatList }) => {
   const [ message, setMessage ] = useState('');
 
   const onSendButtonPress = useCallback(() => {
     const messageInfo = { nickname, content: message };
     dispatchMessage(room, messageInfo);
+    receiveChatList();
     setMessage('');
   }, [message]);
 

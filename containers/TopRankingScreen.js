@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import TopRanking from '../components/TopRanking';
+import TopRankingDetail from '../components/TopRankingDetail';
 
 import { AppLoading } from 'expo';
 import { useFonts } from '@use-expo/font';
@@ -19,7 +19,7 @@ export default TopRankingScreen = ({ navigation }) => {
 
   if (fontsLoaded) {
     return (
-      <TopRanking
+      <TopRankingDetail
         rankingList={rankingList}
         onBackButtonPress={onBackButtonPress}
       />

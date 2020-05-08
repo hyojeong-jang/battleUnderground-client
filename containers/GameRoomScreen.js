@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import GameReady from '../components/GameReady';
 import GameRoomHeader from '../components/GameRoomHeader';
 import GameContainer from '../containers/GameContainer';
-import Chat from '../containers/Chat';
+import ChatContainer from '../containers/ChatContainer';
 
 import * as socketActions from '../actions/socket';
 
@@ -30,6 +30,7 @@ export default function GameRoomScreen ({ navigation }) {
     return navigation.addListener('focus', () => {
       dispatch(socketActions.socketConnect(train));
       dispatch(socketActions.socketJoin(train, nickname));
+      dispatch(socketActions.receiveChatList());
     });
   }, [navigation, train, nickname])
 
@@ -58,7 +59,7 @@ export default function GameRoomScreen ({ navigation }) {
             dispatchReadyUsers={dispatchReadyUsers}
           />
         }
-        <Chat
+        <ChatContainer
           style={styles.chat}
           nickname={nickname}
           room={room}

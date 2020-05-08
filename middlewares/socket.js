@@ -62,6 +62,13 @@ const socketMiddleware = () => {
         });
 
         break;
+      case types.RECEIVE_CHAT_LIST:
+        console.log('in!')
+        socket.on('messageList', (chat) => {
+          store.dispatch(socketActions.dispatchChatList(chat));
+        });
+
+        break;
       case types.DISPATCH_MESSAGE:
         socket.emit('message', action.room, action.messageInfo);
         socket.on('messageList', (chat) => {

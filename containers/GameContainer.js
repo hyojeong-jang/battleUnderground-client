@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { View, Text, StyleSheet } from 'react-native';
 
 import * as socketActions from '../actions/socket';
-import TicTacToe from '../games/Tic-Tac-Toe';
+import TicTacToe from './games/Tic-Tac-Toe';
 
 export default GameContainer = ({ user, room, participants, navigation }) => {
   const dispatch = useDispatch();
@@ -77,7 +77,7 @@ export default GameContainer = ({ user, room, participants, navigation }) => {
             {`next is ${turn ? opponent : user}`}
           </Text>
           <Text style={styles.description}>
-            Three pockemon have to meet!
+            {`The player who succeeds\nin placing three of their Pokemon\nin a horizontal, vertical,\nor diagonal row is the winner`}
           </Text>
         </View>
         : <View style={styles.mainSection}>

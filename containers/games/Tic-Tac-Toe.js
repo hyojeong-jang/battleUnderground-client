@@ -86,15 +86,15 @@ export default TicTacToe = ({
             {
               userSelected.includes(el)
               ? initialTurn
-                ? <Image style={styles.mark} source={require('../assets/images/first.png')} />
-                : <Image style={styles.mark} source={require('../assets/images/second.png')} />
+                ? <Image style={styles.mark} source={require('../../assets/images/first.png')} />
+                : <Image style={styles.mark} source={require('../../assets/images/second.png')} />
               : []
             }
             {
               opponentSelected.includes(el)
               ? !initialTurn
-                ? <Image style={styles.mark} source={require('../assets/images/first.png')} />
-                : <Image style={styles.mark} source={require('../assets/images/second.png')} />
+                ? <Image style={styles.mark} source={require('../../assets/images/first.png')} />
+                : <Image style={styles.mark} source={require('../../assets/images/second.png')} />
               : []
             }
           </View>

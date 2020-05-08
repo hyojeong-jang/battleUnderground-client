@@ -1,14 +1,14 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 
-export default TopRanking = ({ rankingList, onBackButtonPress }) => {
+export default TopRankingDetail = ({ rankingList, onBackButtonPress }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Top Ranking 10</Text>
       <View style={styles.inner}>
       <View>
         { rankingList.slice(0, 3).map((user, idx) => {
-          return <View>
+          return <View key={idx}>
             {
               idx === 0
               && <View style={styles.top1}>
@@ -16,7 +16,7 @@ export default TopRanking = ({ rankingList, onBackButtonPress }) => {
                 <Text style={styles.firstText}>
                   {`${user.station.split(' ')[0]}역 \n${user.nickname}`}
                 </Text>
-                <Text style={styles.firstText}>
+                <Text style={styles.firstTextScore}>
                   {user.game_score}
                 </Text>
               </View>
@@ -28,7 +28,7 @@ export default TopRanking = ({ rankingList, onBackButtonPress }) => {
                 <Text style={styles.secondText}>
                   {`${user.station.split(' ')[0]}역 ${user.nickname}`}
                 </Text>
-                <Text style={styles.secondText}>
+                <Text style={styles.secondTextScore}>
                   {user.game_score}
                 </Text>
               </View>
@@ -40,7 +40,7 @@ export default TopRanking = ({ rankingList, onBackButtonPress }) => {
                 <Text style={styles.thirdText}>
                   {`${user.station.split(' ')[0]}역 ${user.nickname}`}
                 </Text>
-                <Text style={styles.thirdText}>
+                <Text style={styles.thirdTextScore}>
                   {user.game_score}
                 </Text>
               </View>
@@ -86,17 +86,14 @@ const styles = StyleSheet.create({
     padding: '5%'
   },
   title: {
-    borderStyle: 'solid',
-    borderWidth: 3,
-    borderColor: 'black',
     fontFamily: 'silkscreen',
     padding: 10,
     fontSize: 30,
     textAlign: 'center',
-    borderRadius: 50,
     width: '80%',
     alignSelf: 'center',
-    marginTop: 20
+    marginTop: 25,
+    color: '#23374d'
   },
   user:{
     flexDirection: 'row',
@@ -112,7 +109,8 @@ const styles = StyleSheet.create({
     fontFamily: 'silkscreen',
     fontSize: 20,
     textAlign: 'center',
-    marginTop: 20
+    marginTop: 20,
+    color: '#23374d',
   },
   image1: {
     width: 80,
@@ -154,10 +152,28 @@ const styles = StyleSheet.create({
   },
   secondText: {
     fontFamily: 'dunggeunmo',
-    fontSize: 18
+    fontSize: 18,
+    marginTop: 5
   },
   thirdText: {
     fontFamily: 'dunggeunmo',
     fontSize: 16
+  },
+  firstTextScore: {
+    marginTop: 10,
+    fontFamily: 'dunggeunmo',
+    fontSize: 25,
+    color: 'red'
+  },
+  secondTextScore: {
+    marginTop: 5,
+    fontFamily: 'dunggeunmo',
+    fontSize: 20,
+    color: 'red'
+  },
+  thirdTextScore: {
+    fontFamily: 'dunggeunmo',
+    fontSize: 17,
+    color: 'red'
   }
 });

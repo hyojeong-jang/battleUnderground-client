@@ -102,3 +102,7 @@ export const socketOff = (event) => ({
   type: types.SOCKET_OFF,
   event
 });
+
+export const receiveChatList = (room) => ({
+  type: types.RECEIVE_CHAT_LIST
+});

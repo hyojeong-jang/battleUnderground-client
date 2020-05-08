@@ -6,6 +6,7 @@ import { selectedTrain } from '../actions/index';
 
 import { receiveRealTimeArrivalList } from '../api/seoulAPI';
 import SelectTrain from '../components/SelectTrainDetail';
+import AlertError from '../components/AlertError';
 
 export default function SelectTrainScreen ({ navigation }) {
   const dispatch = useDispatch();
@@ -13,12 +14,18 @@ export default function SelectTrainScreen ({ navigation }) {
 
   const [ trainList, setTrainList ] = useState(null);
   const [ train, setTrain ] = useState(null);
+  const [ error, setError ] = useState(false);
 
   useEffect(() => {
     return navigation.addListener('focus', async () => {
-      const station = userStation.split(' ')[0];
-      const response = await receiveRealTimeArrivalList(station);
-      setTrainList(response);
+      try {
+        const station = userStation.split(' ')[0];
+        const response = await receiveRealTimeArrivalList(station);
+
+        setTrainList(response);
+      } catch (error) {
+        setError(true);
+      }
     })
   }, [navigation])
 
@@ -31,12 +38,16 @@ export default function SelectTrainScreen ({ navigation }) {
     <View style={styles.container}>
       {
         trainList
-        ? <SelectTrain
+        && <SelectTrain
           station={userStation}
           trainList={trainList}
           setTrain={setTrain}
           onPressButton={onPressButton}
         />
+      }
+      {
+        !trainList && error
+        ? <AlertError navigation={navigation} />
         : <Image
           style={styles.loading}
           source={require('../assets/images/loading.gif')}

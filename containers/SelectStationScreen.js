@@ -10,6 +10,7 @@ import { receiveNearStation } from '../api/seoulAPI';
 import { getAddress } from '../api/geocodingAPI';
 
 import SelectStation from '../components/SelectStationDetail';
+import AlertError from '../components/AlertError';
 
 export default function SelectStationScreen ({ navigation }) {
   const dispatch = useDispatch();
@@ -20,15 +21,19 @@ export default function SelectStationScreen ({ navigation }) {
   const [ currentLocation, setCurrentLocation ] = useState('');
   const [ stationList, setStationList ] = useState(null);
   const [ station, setStation ] = useState(null);
-
+  const [ error, setError ] = useState(false);
 
   useEffect(() => {
     return navigation.addListener('focus', async () => {
-      const stations = await receiveNearStation(longitude, latitude);
-      const address = await getAddress(longitude, latitude);
+      try {
+        const stations = await receiveNearStation(longitude, latitude);
+        const address = await getAddress(longitude, latitude);
 
-      setCurrentLocation(address);
-      setStationList(stations);
+        setCurrentLocation(address);
+        setStationList(stations);
+      } catch (error) {
+        setError(true);
+      }
     })
   }, [navigation])
 
@@ -47,13 +52,17 @@ export default function SelectStationScreen ({ navigation }) {
       <View style={styles.container}>
         {
           stationList
-          ?  <SelectStation
-            currentLocation={currentLocation}
-            stationList={stationList}
-            setStation={setStation}
-            onbuttonPress={onbuttonPress}
+          && <SelectStation
+          currentLocation={currentLocation}
+          stationList={stationList}
+          setStation={setStation}
+          onbuttonPress={onbuttonPress}
           />
-          : <Image
+        }
+        {
+          !stationList && error
+           ? <AlertError navigation={navigation} />
+           : <Image
             style={styles.loading}
             source={require('../assets/images/loading.gif')}
           />

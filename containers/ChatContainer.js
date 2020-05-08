@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 
@@ -6,9 +6,17 @@ import * as socketActions from '../actions/socket';
 
 import ChatDetail from '../components/ChatDetail';
 
-export default Chat = ({ nickname, room }) => {
+export default ChatContainer = ({ nickname, room }) => {
   const dispatch = useDispatch();
   const chatList = useSelector(state => state.socket.chatList);
+
+  const receiveChatList = useCallback(() => {
+    dispatch(socketActions.receiveChatList());
+  });
+
+  useEffect(() => {
+    dispatch(socketActions.receiveChatList());
+  }, [])
 
   const dispatchMessage = useCallback((room, messageInfo) => {
     dispatch(socketActions.dispatchMessage(room, messageInfo))
@@ -20,6 +28,7 @@ export default Chat = ({ nickname, room }) => {
         room={room}
         chatList={chatList}
         dispatchMessage={dispatchMessage}
+        receiveChatList={receiveChatList}
       />
     </View>
   )

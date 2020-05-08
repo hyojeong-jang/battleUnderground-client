@@ -19,7 +19,7 @@ export default GameResultScreen = ({ navigation }) => {
   const nickname = useSelector(state => state.user.nickname);
 
   const onOneMoreRoundPress = useCallback(() => {
-    // dispatch(actions.clearGameStatus());
+    navigation.navigate('GameRoom');
   });
 
   const onAnotherRoomPress = useCallback(() => {

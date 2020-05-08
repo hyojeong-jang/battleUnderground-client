@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignContent: 'center',
+    backgroundColor: 'white'
   },
   title: {
     fontFamily: 'dunggeunmo',

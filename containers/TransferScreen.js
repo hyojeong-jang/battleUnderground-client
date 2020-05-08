@@ -11,6 +11,7 @@ import { receiveNearStation } from '../api/seoulAPI';
 import { selectedStation } from '../actions/index';
 
 import RadioForm from 'react-native-simple-radio-button';
+import AlertError from '../components/AlertError';
 
 export default TransferScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -18,15 +19,20 @@ export default TransferScreen = ({ navigation }) => {
   const [ currentLocation, setCurrentLocation ] = useState(null);
   const [ stationList, setStationList ] = useState(null);
   const [ station, setStation ] = useState(null);
+  const [ error, setError ] = useState(false);
 
   useEffect(() => {
     return navigation.addListener('focus', async () => {
-      const location = await locationAPI();
-      const address = await getAddress(location.longitude, location.latitude);
-      const stations = await receiveNearStation(location.longitude, location.latitude);
+      try {
+        const location = await locationAPI();
+        const address = await getAddress(location.longitude, location.latitude);
+        const stations = await receiveNearStation(location.longitude, location.latitude);
 
-      setCurrentLocation(address);
-      setStationList(stations);
+        setCurrentLocation(address);
+        setStationList(stations);
+      } catch (error) {
+        setError(true)
+      }
     })
   }, []);
 
@@ -49,18 +55,20 @@ export default TransferScreen = ({ navigation }) => {
         </View>
         <View style={styles.select}>
         {
-          stationList
-          ? <RadioForm
+          !stationList
+          ? error
+           ? <AlertError navigation={navigation} />
+           : <Image
+            style={styles.loading}
+            source={require('../assets/images/loading.gif')}
+            />
+          : <RadioForm
             style={styles.radio}
             radio_props={stationList}
             initial={0}
             buttonColor={'#1089ff'}
             labelStyle={{ fontSize: 17, fontFamily: 'dunggeunmo' }}
             onPress={(value) => setStation(value)}
-          />
-          : <Image
-            style={styles.loading}
-            source={require('../assets/images/loading.gif')}
           />
         }
         </View>
