@@ -17,15 +17,15 @@
 ## Introduction
 같은 열차에 탄 사람과 랜덤으로 매칭되어 실시간으로 채팅과 미니게임을 즐길 수 았는 안드로이드 전용 어플리케이션입니다.
 
-<img src="/readmeAssets/projectDemo1.gif" width="50%" height="auto" alt="Project Demo 1"></img><br/>
-<img src="/readmeAssets/projectDemo2.gif" width="50%" height="auto" alt="Project Demo 2"></img>
+<img src="/readmeAssets/projectDemo1.gif" width="30%" height="auto" alt="Project Demo 1"></img>
+<img src="/readmeAssets/projectDemo2.gif" width="30%" height="auto" alt="Project Demo 2"></img>
 
 <a name='prerequisites'></a>
 ## Prerequisites
 로컬환경에서 실행하기 위해서 아래 절차가 필요합니다.
 
 ### Client
-- 루트 디렉토리에 있는 environment파일을 수정해주세요. ( <your_~>를 지우고 발급받은 정보들을 입력해주세요.)
+- 루트 디렉토리에 있는 environment.js파일을 수정해주세요. ( <your_~>를 지우고 발급받은 정보들을 입력해주세요.)
 - 모바일 기기 인터넷 연결을 로컬 환경과 동일한 ip 주소로 연결해주신 후, QR코드로 실행하실 수 있습니다.
 ```
 
@@ -60,7 +60,7 @@ MONGO_DB_URL=<your_connection_string>
 
 ```
 
-- [MongoDB ](https://www.mongodb.com)
+- [MongoDB](https://www.mongodb.com)
   1. MongoDB Atlas 로그인 및 접속
   2. Connect your application - your connection string
  
