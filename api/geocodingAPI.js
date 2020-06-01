@@ -11,5 +11,4 @@ export const getAddress = async (x, y) => {
     latitude : y
   });
   return response.results[0].formatted_address
-  // return 'vanilla coding'
 }
