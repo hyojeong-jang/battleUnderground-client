@@ -51,20 +51,18 @@ export default function SelectStationScreen ({ navigation }) {
     return (
       <View style={styles.container}>
         {
-          stationList
-          && <SelectStation
-          currentLocation={currentLocation}
-          stationList={stationList}
-          setStation={setStation}
-          onbuttonPress={onbuttonPress}
-          />
-        }
-        {
-          !stationList && error
+          !stationList
+          ? error
            ? <AlertError navigation={navigation} />
            : <Image
-            style={styles.loading}
-            source={require('../assets/images/loading.gif')}
+              style={styles.loading}
+              source={require('../assets/images/loading.gif')}
+            />
+          : <SelectStation
+            currentLocation={currentLocation}
+            stationList={stationList}
+            setStation={setStation}
+            onbuttonPress={onbuttonPress}
           />
         }
       </View>

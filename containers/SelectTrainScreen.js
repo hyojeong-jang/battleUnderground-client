@@ -37,20 +37,18 @@ export default function SelectTrainScreen ({ navigation }) {
   return (
     <View style={styles.container}>
       {
-        trainList
-        && <SelectTrain
+        !trainList
+        ? error
+         ? <AlertError navigation={navigation} />
+         : <Image
+          style={styles.loading}
+          source={require('../assets/images/loading.gif')}
+        />
+        : <SelectTrain
           station={userStation}
           trainList={trainList}
           setTrain={setTrain}
           onPressButton={onPressButton}
-        />
-      }
-      {
-        !trainList && error
-        ? <AlertError navigation={navigation} />
-        : <Image
-          style={styles.loading}
-          source={require('../assets/images/loading.gif')}
         />
       }
     </View>

@@ -19,14 +19,6 @@ export default GameResultDetail = ({
       }
       <Text style={styles.title}>{`${isWinner ? isWinner === true ? 'win' : 'draw' : 'lose'}!`}</Text>
       <TouchableOpacity
-        style={styles.oneMoreRound}
-        onPress={onOneMoreRoundPress}
-      >
-        <Text style={styles.text}>
-          oneMoreRound
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
         style={styles.button}
         onPress={onAnotherRoomPress}
       >

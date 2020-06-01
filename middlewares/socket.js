@@ -63,7 +63,6 @@ const socketMiddleware = () => {
 
         break;
       case types.RECEIVE_CHAT_LIST:
-        console.log('in!')
         socket.on('messageList', (chat) => {
           store.dispatch(socketActions.dispatchChatList(chat));
         });
@@ -112,7 +111,6 @@ const socketMiddleware = () => {
           socket.close();
         }
         socket = null;
-        console.log('socket closed');
 
         break;
       default:
